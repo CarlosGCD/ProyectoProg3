@@ -79,8 +79,5 @@ public class Moto {
 				+ ", cilindrada=" + cilindrada + ", potencia=" + potencia + ", precio=" + precio + ", puntos=" + puntos
 				+ "]";
 	}
-	
-	
-
-	
+		
 }
