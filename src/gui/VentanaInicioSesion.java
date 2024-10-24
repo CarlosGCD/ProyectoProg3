@@ -49,7 +49,7 @@ public class VentanaInicioSesion extends JFrame{
 		textoUsuario.setBounds(90, 60, 200, 30);
 		panelSesion.add(textoUsuario);
 
-		textoContrasena = new JLabel("Contraseña: ");
+		textoContrasena = new JLabel("Password: ");
 		textoContrasena.setBounds(68, 100, 200, 30);
 		panelSesion.add(textoContrasena);
 
@@ -62,7 +62,7 @@ public class VentanaInicioSesion extends JFrame{
 		panelSesion.add(contrasena);
 		
 	
-		iniciarSesion = new JButton("Iniciar sesión");
+		iniciarSesion = new JButton("Iniciar sesion");
 		registrarse = new JButton("Registrarse");
 		gestionarUsuario = new JButton("Gestionar");
 		panelBotones.add(iniciarSesion);
