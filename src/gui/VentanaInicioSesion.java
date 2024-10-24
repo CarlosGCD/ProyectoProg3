@@ -33,6 +33,7 @@ public class VentanaInicioSesion extends JFrame{
 		panelTitulo.setLayout(new GridLayout(1, 1));
 		
 		ImageIcon tituloImagen = new ImageIcon("resources/images/logo moto.png");
+		//imagen generada por una IA
 		ImageIcon minImagen = new ImageIcon(tituloImagen.getImage().getScaledInstance(400, 250, Image.SCALE_SMOOTH));
 		JLabel labelTitulo = new JLabel(minImagen);
 		panelTitulo.add(labelTitulo, BorderLayout.NORTH);
