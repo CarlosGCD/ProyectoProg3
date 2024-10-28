@@ -6,8 +6,13 @@ public class VentanaMotos extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	
-	public VentanaMotos() {
+	protected JFrame vActual, vAnterior;
+	
+	public VentanaMotos(JFrame vAnterior) {
+		super();
 		
+		vActual = this;
+		this.vAnterior = vAnterior;
 		
 		
 		

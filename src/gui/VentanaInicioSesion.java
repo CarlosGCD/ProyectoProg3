@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -27,7 +28,12 @@ public class VentanaInicioSesion extends JFrame{
 	protected JButton registrarse;
 	protected JButton gestionarUsuario;
 	
+	protected JFrame vActual;
+	
 	public VentanaInicioSesion() {
+		super();
+		
+		vActual = this;
 		
 		JPanel panelTitulo = new JPanel();
 		panelTitulo.setLayout(new GridLayout(1, 1));
@@ -69,7 +75,7 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(registrarse);
 		panelBotones.add(gestionarUsuario);
 		
-		iniciarSesion.addActionListener(new ActionListener() {
+		/*iniciarSesion.addActionListener(new ActionListener() {
 			
 			@SuppressWarnings("unlikely-arg-type")
 			
@@ -80,6 +86,18 @@ public class VentanaInicioSesion extends JFrame{
 				} else {
 					System.out.println("Usuario incorrecto");
 				}
+			}
+		});*/
+		
+		iniciarSesion.addActionListener((e)-> {
+			if (usuario.getText().equals("usuario") || contrasena.getPassword().equals("usuario")) {
+				JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+				vaciarCampos();
+				vActual.dispose();
+				new VentanaMotos(vActual);
+			} else {
+				JOptionPane.showMessageDialog(null, "Nombre de usuario y/o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
+				vaciarCampos();
 			}
 		});
 		
@@ -95,4 +113,9 @@ public class VentanaInicioSesion extends JFrame{
 		this.setVisible(true);
 	}
 
+	public void vaciarCampos() {
+		usuario.setText("");
+		contrasena.setText("");
+	}
+	
 }
