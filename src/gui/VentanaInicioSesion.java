@@ -75,20 +75,6 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(registrarse);
 		panelBotones.add(gestionarUsuario);
 		
-		/*iniciarSesion.addActionListener(new ActionListener() {
-			
-			@SuppressWarnings("unlikely-arg-type")
-			
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if (usuario.getText().equals("usuario") || contrasena.getPassword().equals("usuario")) {
-					System.out.println("Usuario correcto");
-				} else {
-					System.out.println("Usuario incorrecto");
-				}
-			}
-		});*/
-		
 		iniciarSesion.addActionListener((e)-> {
 			if (usuario.getText().equals("usuario") || contrasena.getPassword().equals("usuario")) {
 				JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
