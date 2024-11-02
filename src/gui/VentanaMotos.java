@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,6 +30,9 @@ public class VentanaMotos extends JFrame{
 	protected DefaultTableModel modeloTablaMotos;
 	protected JScrollPane scrollTablaMotos;
 	
+	protected JTextField txtFiltro;
+	protected JComboBox<String> cbTipo;
+	
 	public VentanaMotos(JFrame vAnterior) {
 		super();
 		
@@ -43,11 +47,13 @@ public class VentanaMotos extends JFrame{
 		//Creación de los paneles y los añadimos a la ventana
 		pCentro = new JPanel(new GridLayout(1,1));
 		pSur = new JPanel();
+		pNorte = new JPanel();
 		
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		getContentPane().add(pSur, BorderLayout.SOUTH);
+		getContentPane().add(pNorte, BorderLayout.NORTH);
 		
-		//Creamos los botones y los añadimos al panel sur
+		//Creamos los botones del panel sur
 		btnComprar = new JButton("COMPRAR");
 		pSur.add(btnComprar);
 		btnVolver = new JButton("VOLVER");
@@ -63,6 +69,12 @@ public class VentanaMotos extends JFrame{
 		modeloTablaMotos.setColumnIdentifiers(titulos);
 		
 		pCentro.add(scrollTablaMotos);
+		
+		//Creamos los botones del panel norte
+		cbTipo = new JComboBox<>(titulos);
+		pNorte.add(cbTipo);
+		txtFiltro = new JTextField(20);
+		pNorte.add(txtFiltro);
 		
 		//Cargar la información (motos) en la tabla
 		cargarTabla();
