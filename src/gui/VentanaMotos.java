@@ -195,7 +195,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+							if (marca.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -216,7 +216,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+							if (modelo.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -237,7 +237,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (color.toUpperCase().contains(texto.toUpperCase())) {
+							if (color.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -258,7 +258,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+							if (matricula.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -279,7 +279,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (cilindrada.contains(texto)) {
+							if (cilindrada.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -300,7 +300,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (potencia.contains(texto)) {
+							if (potencia.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -321,7 +321,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (precio.contains(texto)) {
+							if (precio.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -345,7 +345,7 @@ public class VentanaMotos extends JFrame{
 							//Convertir puntos a cadena para la comparacion
 							String puntosStr = String.valueOf(puntos);
 							
-							if (puntosStr.contains(texto)) {
+							if (puntosStr.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -376,7 +376,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+							if (marca.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -397,7 +397,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+							if (modelo.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -418,7 +418,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (color.toUpperCase().contains(texto.toUpperCase())) {
+							if (color.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -439,7 +439,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+							if (matricula.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -460,7 +460,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (cilindrada.contains(texto)) {
+							if (cilindrada.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -481,7 +481,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (potencia.contains(texto)) {
+							if (potencia.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -502,7 +502,7 @@ public class VentanaMotos extends JFrame{
 							String precio = modeloCompleto.getValueAt(i, 6).toString();
 							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
 							
-							if (precio.contains(texto)) {
+							if (precio.startsWith(texto)) {
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
@@ -526,7 +526,7 @@ public class VentanaMotos extends JFrame{
 							//Convertir puntos a cadena para la comparacion
 							String puntosStr = String.valueOf(puntos);
 							
-							if (texto.isEmpty() || puntosStr.contains(texto)){
+							if (texto.isEmpty() || puntosStr.startsWith(texto)){
 								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
 								modeloFiltrado.addRow(fila);
 							}
