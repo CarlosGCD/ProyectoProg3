@@ -101,6 +101,12 @@ private static final long serialVersionUID = 1L;
 			ventanaMotos.setVisible(true);
 		});
 		
+		btnMotoSegundaMano.addActionListener((e)-> {
+			vActual.dispose();
+			VentanaMotosSegundaMano ventanaMotosSegundaMano = new VentanaMotosSegundaMano(vActual);
+			ventanaMotosSegundaMano.setVisible(true);
+		});
+		
 		btnVolver.addActionListener((e)-> {
 			vActual.dispose();
 			vAnterior.setVisible(true);
