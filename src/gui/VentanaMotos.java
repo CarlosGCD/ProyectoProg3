@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,13 +10,15 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaMotos extends JFrame{
@@ -63,8 +64,21 @@ public class VentanaMotos extends JFrame{
 		
 		//Creación de la tabla
 		modeloTablaMotos = new DefaultTableModel();
-		tablaMotos = new JTable(modeloTablaMotos);
+		tablaMotos = new JTable(modeloTablaMotos) {
+			
+			private static final long serialVersionUID = 1L;
+
+			//Bloquea la edición de todas las celdas
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		
+				return false;
+			}
+		};
+
 		scrollTablaMotos = new JScrollPane(tablaMotos);
+		scrollTablaMotos.setBorder(new TitledBorder("Motos"));
+		tablaMotos.setFillsViewportHeight(true);
 		
 		//Añadimos los títulos de las columnas de la tabla
 		String [] titulos = {"MARCA", "MODELO", "COLOR", "MATRÍCULA", "CILINDRADA", "POTENCIA", "PRECIO", "PUNTOS"};
@@ -84,30 +98,77 @@ public class VentanaMotos extends JFrame{
 		//Para impedir que se puedan cambiar las columnas de orden
 		tablaMotos.getTableHeader().setReorderingAllowed(false);
 		
+		//Para impedir que se puedan redimensionar laas columnas
+		tablaMotos.getTableHeader().setResizingAllowed(false);
+		
+		//Se definen criterios de ordenación por defecto para cada columna
+		tablaMotos.setAutoCreateRowSorter(true);
+		
+		//Se modifica el modelo de selección de la tabla para que se pueda selecciona únicamente una fila
+		tablaMotos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		//Para hacer las celdas mas altas y se visualice mejor la informacion
 		tablaMotos.setRowHeight(25);
 		
-		tablaMotos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-			private static final long serialVersionUID = 1L;
+		//Se establece el renderer para la cabecera
+		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
+			JLabel lblTitulos = new JLabel(value.toString());
+			lblTitulos.setHorizontalAlignment(JLabel.CENTER);
 			
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-				
-				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				
-				//Damos un fondo mas grisaceo a las filas pares para diferenciar mejor la informacion de cada fila
-				if (row%2 == 0) {
-					c.setBackground(Color.LIGHT_GRAY);
-				} else {
-					c.setBackground(Color.WHITE);
-				}
-				return c;
-				
+			switch (value.toString()){
+				case "MARCA":
+				case "MODELO": 
+				case "COLOR":
+				case "MATRÍCULA":
+					lblTitulos.setHorizontalAlignment(JLabel.LEFT);
 			}
 			
+			lblTitulos.setBackground(tablaMotos.getBackground());
+			lblTitulos.setForeground(tablaMotos.getForeground());
 			
+			lblTitulos.setOpaque(true);
 			
+			return lblTitulos;
+		});;
+		
+		//Se establece el renderer para el contenido
+		tablaMotos.setDefaultRenderer(Object.class, (table, value, isSelected, hasFocus, row, column)-> {
+			JLabel lblContenido = new JLabel(value.toString());
+				
+			//Damos un fondo mas grisaceo a las filas pares para diferenciar mejor la informacion de cada fila
+			if (row%2 == 0) {
+				lblContenido.setBackground(Color.LIGHT_GRAY);
+			} else {
+				lblContenido.setBackground(Color.WHITE);
+			}
+			
+			//Si la celda está seleccionada se renderiza con el color de selección por defecto
+			if (isSelected) {
+				lblContenido.setBackground(tablaMotos.getSelectionBackground());
+				lblContenido.setForeground(tablaMotos.getSelectionForeground());
+			}
+			
+			//Si el valor es numérico se renderiza centrado
+			if(value instanceof Number) {
+					lblContenido.setHorizontalAlignment(JLabel.CENTER);
+			} else {
+				//Si el valor es texto pero representa un número se renderiza centrado tambien
+				String originalValue = value.toString();
+				String cleanValue = originalValue.replaceAll("[^0-9.]", "");
+				
+				if(!cleanValue.isEmpty() && (originalValue.matches("\\$?\\d{1,3}(,\\d{3})*(\\.\\d+)?") || originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) {
+					lblContenido.setHorizontalAlignment(JLabel.CENTER);
+				} else {
+					lblContenido.setText(value.toString());
+				}
+				
+				
+			}
+				
+			lblContenido.setOpaque(true);
+			
+			return lblContenido;
+				
 		});
 		
 		//Añadimos el listener al JTextField
