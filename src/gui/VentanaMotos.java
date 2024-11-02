@@ -116,53 +116,363 @@ public class VentanaMotos extends JFrame{
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				String texto = txtFiltro.getText();
+				String tipo = cbTipo.getSelectedItem().toString();
 				
-				//Obtenemos el modelo que contiene toda la información
-				DefaultTableModel modeloCompleto = modeloTablaMotos;
-				DefaultTableModel modeloFiltrado = new DefaultTableModel();
-				modeloFiltrado.setColumnIdentifiers(titulos);
-				for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
-					String marca = modeloCompleto.getValueAt(i, 0).toString();
-					String modelo = modeloCompleto.getValueAt(i, 1).toString();
-					String color = modeloCompleto.getValueAt(i, 2).toString();
-					String matricula = modeloCompleto.getValueAt(i, 3).toString();
-					String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
-					String potencia = modeloCompleto.getValueAt(i, 5).toString();
-					String precio = modeloCompleto.getValueAt(i, 6).toString();
-					int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
-					
-					if (marca.toUpperCase().contains(texto.toUpperCase())) {
-						Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
-						modeloFiltrado.addRow(fila);
+				if (tipo!=null) { //Si ha seleccionado un tipo en el JComboBox
+					if (tipo.equals("MARCA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("MODELO")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("COLOR")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (color.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("MATRÍCULA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("CILINDRADA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (cilindrada.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("POTENCIA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (potencia.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("PRECIO")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (precio.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					}else {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							//Convertir puntos a cadena para la comparacion
+							String puntosStr = String.valueOf(puntos);
+							
+							if (puntosStr.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
 					}
 				}
-				tablaMotos.setModel(modeloFiltrado);
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				String texto = txtFiltro.getText();
+				String tipo = cbTipo.getSelectedItem().toString();
 				
-				//Obtenemos el modelo que contiene toda la información
-				DefaultTableModel modeloCompleto = modeloTablaMotos;
-				DefaultTableModel modeloFiltrado = new DefaultTableModel();
-				modeloFiltrado.setColumnIdentifiers(titulos);
-				for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
-					String marca = modeloCompleto.getValueAt(i, 0).toString();
-					String modelo = modeloCompleto.getValueAt(i, 1).toString();
-					String color = modeloCompleto.getValueAt(i, 2).toString();
-					String matricula = modeloCompleto.getValueAt(i, 3).toString();
-					String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
-					String potencia = modeloCompleto.getValueAt(i, 5).toString();
-					String precio = modeloCompleto.getValueAt(i, 6).toString();
-					int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
-					
-					if (marca.toUpperCase().contains(texto.toUpperCase())) {
-						Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
-						modeloFiltrado.addRow(fila);
+				if (tipo!=null) { //Si ha seleccionado un tipo en el JComboBox
+					if (tipo.equals("MARCA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("MODELO")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("COLOR")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (color.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("MATRÍCULA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("CILINDRADA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (cilindrada.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("POTENCIA")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (potencia.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					} else if(tipo.equals("PRECIO")) {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							if (precio.contains(texto)) {
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
+					}else {
+						//Obtenemos el modelo que contiene toda la información
+						DefaultTableModel modeloCompleto = modeloTablaMotos;
+						DefaultTableModel modeloFiltrado = new DefaultTableModel();
+						modeloFiltrado.setColumnIdentifiers(titulos);
+						for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+							String marca = modeloCompleto.getValueAt(i, 0).toString();
+							String modelo = modeloCompleto.getValueAt(i, 1).toString();
+							String color = modeloCompleto.getValueAt(i, 2).toString();
+							String matricula = modeloCompleto.getValueAt(i, 3).toString();
+							String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+							String potencia = modeloCompleto.getValueAt(i, 5).toString();
+							String precio = modeloCompleto.getValueAt(i, 6).toString();
+							int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+							
+							//Convertir puntos a cadena para la comparacion
+							String puntosStr = String.valueOf(puntos);
+							
+							if (texto.isEmpty() || puntosStr.contains(texto)){
+								Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+								modeloFiltrado.addRow(fila);
+							}
+						}
+						tablaMotos.setModel(modeloFiltrado);
 					}
 				}
-				tablaMotos.setModel(modeloFiltrado);
 			}
 
 			@Override
