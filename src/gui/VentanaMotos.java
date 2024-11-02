@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -21,8 +22,8 @@ public class VentanaMotos extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
 	protected JFrame vActual, vAnterior;
-	protected JPanel pNorte,pSur,pCentro,pEste,pOeste;
-	protected JButton btnVolver;
+	protected JPanel pNorte,pSur,pCentro;
+	protected JButton btnVolver, btnComprar;
 	
 	protected JTable tablaMotos;
 	protected DefaultTableModel modeloTablaMotos;
@@ -46,7 +47,9 @@ public class VentanaMotos extends JFrame{
 		getContentPane().add(pCentro, BorderLayout.CENTER);
 		getContentPane().add(pSur, BorderLayout.SOUTH);
 		
-		//Creamos el boton y lo añadimos al panel sur
+		//Creamos los botones y los añadimos al panel sur
+		btnComprar = new JButton("COMPRAR");
+		pSur.add(btnComprar);
 		btnVolver = new JButton("VOLVER");
 		pSur.add(btnVolver);
 		
