@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaMotos extends JFrame{
@@ -31,7 +34,8 @@ public class VentanaMotos extends JFrame{
 		vActual = this;
 		this.vAnterior = vAnterior;
 		
-		setBounds(300, 200, 600, 400);
+		setSize(800, 600);
+		setLocationRelativeTo(null);
 		setTitle("Inventario de Motos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -59,6 +63,35 @@ public class VentanaMotos extends JFrame{
 		
 		//Cargar la información (motos) en la tabla
 		cargarTabla();
+		
+		//Para impedir que se puedan cambiar las columnas de orden
+		tablaMotos.getTableHeader().setReorderingAllowed(false);
+		
+		//Para hacer las celdas mas altas y se visualice mejor la informacion
+		tablaMotos.setRowHeight(25);
+		
+		tablaMotos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+				
+				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				
+				//Damos un fondo mas grisaceo a las filas pares para diferenciar mejor la informacion de cada fila
+				if (row%2 == 0) {
+					c.setBackground(Color.LIGHT_GRAY);
+				} else {
+					c.setBackground(Color.WHITE);
+				}
+				return c;
+				
+			}
+			
+			
+			
+		});
 		
 		btnVolver.addActionListener((e)-> {
 			vActual.dispose();
