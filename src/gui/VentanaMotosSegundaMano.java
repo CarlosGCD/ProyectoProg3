@@ -135,7 +135,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+							if (marca.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -160,7 +160,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+							if (modelo.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -185,7 +185,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (color.toUpperCase().contains(texto.toUpperCase())) {
+							if (color.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -210,7 +210,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+							if (matricula.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -235,7 +235,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (cilindrada.contains(texto)) {
+							if (cilindrada.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -260,7 +260,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (potencia.contains(texto)) {
+							if (potencia.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -285,7 +285,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (precio.contains(texto)) {
+							if (precio.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -313,7 +313,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							// Convertir puntos a cadena para la comparacion
 							String puntosStr = String.valueOf(puntos);
 
-							if (puntosStr.contains(texto)) {
+							if (puntosStr.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -341,7 +341,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							// Convertir fechaFabricacion a cadena para la comparacion
 							String fechaFabricacionStr = String.valueOf(fechaFabricacion);
 							
-							if (fechaFabricacionStr.contains(texto)) {
+							if (fechaFabricacionStr.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -391,7 +391,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (estado.toUpperCase().contains(texto.toUpperCase())) {
+							if (estado.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -427,7 +427,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (marca.toUpperCase().contains(texto.toUpperCase())) {
+							if (marca.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -452,7 +452,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (modelo.toUpperCase().contains(texto.toUpperCase())) {
+							if (modelo.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -477,7 +477,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (color.toUpperCase().contains(texto.toUpperCase())) {
+							if (color.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -502,7 +502,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (matricula.toUpperCase().contains(texto.toUpperCase())) {
+							if (matricula.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -527,7 +527,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (cilindrada.contains(texto)) {
+							if (cilindrada.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -552,7 +552,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (potencia.contains(texto)) {
+							if (potencia.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -577,7 +577,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (precio.contains(texto)) {
+							if (precio.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -605,7 +605,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							// Convertir puntos a cadena para la comparacion
 							String puntosStr = String.valueOf(puntos);
 
-							if (texto.isEmpty() || puntosStr.contains(texto)) {
+							if (texto.isEmpty() || puntosStr.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -658,7 +658,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (kilometraje.contains(texto)) {
+							if (kilometraje.startsWith(texto)) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);
@@ -683,7 +683,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							String kilometraje = modeloCompleto.getValueAt(i, 9).toString();
 							String estado = modeloCompleto.getValueAt(i, 10).toString();
 							
-							if (estado.toUpperCase().contains(texto.toUpperCase())) {
+							if (estado.toUpperCase().startsWith(texto.toUpperCase())) {
 								Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio,
 										puntos, fechaFabricacion, kilometraje, estado };
 								modeloFiltrado.addRow(fila);

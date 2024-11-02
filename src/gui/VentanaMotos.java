@@ -42,7 +42,7 @@ public class VentanaMotos extends JFrame{
 		vActual = this;
 		this.vAnterior = vAnterior;
 		
-		setSize(800, 600);
+		setSize(1000, 600);
 		setLocationRelativeTo(null);
 		setTitle("Inventario de Motos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

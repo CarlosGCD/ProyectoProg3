@@ -1,15 +1,15 @@
-Honda;CB500F;Rojo;ABC123;500 cc;47 CV;$7,500;8
-Yamaha;MT-07;Negro;XYZ456;689 cc;74 CV;$9,200;9
-Kawasaki;Z900;Verde;QWE789;948 cc;125 CV;$11,500;9
-Ducati;Monster 821;Blanco;DUC123;821 cc;109 CV;$12,800;10
-BMW;G310R;Azul;BMW789;313 cc;34 CV;$5,900;7
-KTM;Duke 390;Naranja;KTM567;373 cc;44 CV;$6,300;8
-Triumph;Street Triple 765;Gris;TRP234;765 cc;123 CV;$13,200;9
-Suzuki;SV650;Azul;SUZ345;645 cc;75 CV;$7,900;8
-Aprilia;Tuono 660;Negro;APR567;660 cc;95 CV;$11,000;9
-Harley-Davidson;Iron 883;Negro;HD1234;883 cc;50 CV;$10,500;8
-Yamaha;MT-09;Negro;XYZ789;847 cc;115 CV;$10,300;9
-Ducati;Monster 1200;Blanco;DUC456;1198 cc;147 CV;$16,500;10
-Kawasaki;Ninja 650;Verde;QWE456;649 cc;68 CV;$8,500;8
-KTM;Duke 790;Naranja;KTM890;799 cc;105 CV;$9,900;9
-BMW;F800R;Azul;BMW234;798 cc;90 CV;$10,800;9
+Honda;CB500F;Rojo;ABC123;500 cc;47 CV;7,500€;8
+Yamaha;MT-07;Negro;XYZ456;689 cc;74 CV;9,200€;9
+Kawasaki;Z900;Verde;QWE789;948 cc;125 CV;11,500€;9
+Ducati;Monster 821;Blanco;DUC123;821 cc;109 CV;12,800€;10
+BMW;G310R;Azul;BMW789;313 cc;34 CV;5,900€;7
+KTM;Duke 390;Naranja;KTM567;373 cc;44 CV;6,300€;8
+Triumph;Street Triple 765;Gris;TRP234;765 cc;123 CV;13,200€;9
+Suzuki;SV650;Azul;SUZ345;645 cc;75 CV;7,900€;8
+Aprilia;Tuono 660;Negro;APR567;660 cc;95 CV;11,000€;9
+Harley-Davidson;Iron 883;Negro;HD1234;883 cc;50 CV;10,500€;8
+Yamaha;MT-09;Negro;XYZ789;847 cc;115 CV;10,300€;9
+Ducati;Monster 1200;Blanco;DUC456;1198 cc;147 CV;16,500€;10
+Kawasaki;Ninja 650;Verde;QWE456;649 cc;68 CV;8,500€;8
+KTM;Duke 790;Naranja;KTM890;799 cc;105 CV;9,900€;9
+BMW;F800R;Azul;BMW234;798 cc;90 CV;e10,800€;9
