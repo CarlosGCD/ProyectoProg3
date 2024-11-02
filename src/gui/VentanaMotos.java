@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class VentanaMotos extends JFrame{
 
@@ -110,10 +113,17 @@ public class VentanaMotos extends JFrame{
 		//Para hacer las celdas mas altas y se visualice mejor la informacion
 		tablaMotos.setRowHeight(25);
 		
+		//Para hacer la cabecera mas alta
+		JTableHeader header = tablaMotos.getTableHeader();
+		
+		header.setPreferredSize(new Dimension(header.getPreferredSize().width, 28));
+		
 		//Se establece el renderer para la cabecera
 		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
 			JLabel lblTitulos = new JLabel(value.toString());
 			lblTitulos.setHorizontalAlignment(JLabel.CENTER);
+			
+			lblTitulos.setFont(new Font("SansSerif", Font.BOLD, 13));
 			
 			switch (value.toString()){
 				case "MARCA":
