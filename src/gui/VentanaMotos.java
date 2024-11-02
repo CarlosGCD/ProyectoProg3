@@ -11,10 +11,12 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -64,7 +66,19 @@ public class VentanaMotos extends JFrame{
 		
 		//Creación de la tabla
 		modeloTablaMotos = new DefaultTableModel();
-		tablaMotos = new JTable(modeloTablaMotos);
+		tablaMotos = new JTable(modeloTablaMotos) {
+			
+			private static final long serialVersionUID = 1L;
+
+			//Bloquea la edición de todas las celdas
+			@Override
+			public boolean isCellEditable(int row, int column) {
+		
+				return false;
+			}
+		};
+		
+		
 		scrollTablaMotos = new JScrollPane(tablaMotos);
 		scrollTablaMotos.setBorder(new TitledBorder("Motos"));
 		tablaMotos.setFillsViewportHeight(true);
@@ -87,8 +101,29 @@ public class VentanaMotos extends JFrame{
 		//Para impedir que se puedan cambiar las columnas de orden
 		tablaMotos.getTableHeader().setReorderingAllowed(false);
 		
+		//Para impedir que se puedan redimensionar laas columnas
+		tablaMotos.getTableHeader().setResizingAllowed(false);
+		
+		//Se definen criterios de ordenación por defecto para cada columna
+		tablaMotos.setAutoCreateRowSorter(true);
+		
+		//Se modifica el modelo de selección de la tabla para que se pueda selecciona únicamente una fila
+		tablaMotos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		//Para hacer las celdas mas altas y se visualice mejor la informacion
 		tablaMotos.setRowHeight(25);
+		
+		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
+			JLabel lblTitulos = new JLabel(value.toString());
+			lblTitulos.setHorizontalAlignment(JLabel.CENTER);
+			
+			lblTitulos.setBackground(tablaMotos.getBackground());
+			lblTitulos.setForeground(tablaMotos.getForeground());
+			
+			lblTitulos.setOpaque(true);
+			
+			return lblTitulos;
+		});;
 		
 		tablaMotos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
@@ -108,8 +143,6 @@ public class VentanaMotos extends JFrame{
 				return c;
 				
 			}
-			
-			
 			
 		});
 		
