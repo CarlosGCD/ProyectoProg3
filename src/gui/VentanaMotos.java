@@ -164,12 +164,16 @@ public class VentanaMotos extends JFrame{
 			} else {
 				//Si el valor es texto pero representa un número se renderiza centrado tambien
 				String originalValue = value.toString();
-				String cleanValue = originalValue.replaceAll("[^0-9.]", "");
+				String cleanValue = originalValue.replaceAll("[^0-9.]", ""); // Mantener solo dígitos y el punto decimal
 				
-				if(!cleanValue.isEmpty() && (originalValue.matches("\\$?\\d{1,3}(,\\d{3})*(\\.\\d+)?") || originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) {
+				//Comprobar si el valor limpio no está vacío y si el original tiene el formato correcto
+				if(!cleanValue.isEmpty() && 
+				   (originalValue.matches("\\d{1,3}(,\\d{3})*(\\.\\d+)?€") || // Formato numérico con €
+					originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) { // Formato numérico con cc o CV
+					
 					lblContenido.setHorizontalAlignment(JLabel.CENTER);
 				} else {
-					lblContenido.setText(value.toString());
+					lblContenido.setText(value.toString()); 
 				}
 				
 				
