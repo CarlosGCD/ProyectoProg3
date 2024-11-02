@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -105,6 +107,68 @@ public class VentanaMotos extends JFrame{
 			}
 			
 			
+			
+		});
+		
+		//Añadimos el listener al JTextField
+		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				String texto = txtFiltro.getText();
+				
+				//Obtenemos el modelo que contiene toda la información
+				DefaultTableModel modeloCompleto = modeloTablaMotos;
+				DefaultTableModel modeloFiltrado = new DefaultTableModel();
+				modeloFiltrado.setColumnIdentifiers(titulos);
+				for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+					String marca = modeloCompleto.getValueAt(i, 0).toString();
+					String modelo = modeloCompleto.getValueAt(i, 1).toString();
+					String color = modeloCompleto.getValueAt(i, 2).toString();
+					String matricula = modeloCompleto.getValueAt(i, 3).toString();
+					String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+					String potencia = modeloCompleto.getValueAt(i, 5).toString();
+					String precio = modeloCompleto.getValueAt(i, 6).toString();
+					int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+					
+					if (marca.toUpperCase().contains(texto.toUpperCase())) {
+						Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+						modeloFiltrado.addRow(fila);
+					}
+				}
+				tablaMotos.setModel(modeloFiltrado);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				String texto = txtFiltro.getText();
+				
+				//Obtenemos el modelo que contiene toda la información
+				DefaultTableModel modeloCompleto = modeloTablaMotos;
+				DefaultTableModel modeloFiltrado = new DefaultTableModel();
+				modeloFiltrado.setColumnIdentifiers(titulos);
+				for (int i = 0; i < modeloCompleto.getRowCount(); i++) {
+					String marca = modeloCompleto.getValueAt(i, 0).toString();
+					String modelo = modeloCompleto.getValueAt(i, 1).toString();
+					String color = modeloCompleto.getValueAt(i, 2).toString();
+					String matricula = modeloCompleto.getValueAt(i, 3).toString();
+					String cilindrada = modeloCompleto.getValueAt(i, 4).toString();
+					String potencia = modeloCompleto.getValueAt(i, 5).toString();
+					String precio = modeloCompleto.getValueAt(i, 6).toString();
+					int puntos = Integer.parseInt(modeloCompleto.getValueAt(i, 7).toString());
+					
+					if (marca.toUpperCase().contains(texto.toUpperCase())) {
+						Object [] fila = {marca, modelo, color, matricula, cilindrada, potencia, precio, puntos};
+						modeloFiltrado.addRow(fila);
+					}
+				}
+				tablaMotos.setModel(modeloFiltrado);
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				
+			}
 			
 		});
 		
