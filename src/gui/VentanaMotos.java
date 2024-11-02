@@ -77,8 +77,7 @@ public class VentanaMotos extends JFrame{
 				return false;
 			}
 		};
-		
-		
+
 		scrollTablaMotos = new JScrollPane(tablaMotos);
 		scrollTablaMotos.setBorder(new TitledBorder("Motos"));
 		tablaMotos.setFillsViewportHeight(true);
@@ -113,6 +112,7 @@ public class VentanaMotos extends JFrame{
 		//Para hacer las celdas mas altas y se visualice mejor la informacion
 		tablaMotos.setRowHeight(25);
 		
+		//Se establece el renderer para la cabecera
 		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
 			JLabel lblTitulos = new JLabel(value.toString());
 			lblTitulos.setHorizontalAlignment(JLabel.CENTER);
@@ -125,25 +125,44 @@ public class VentanaMotos extends JFrame{
 			return lblTitulos;
 		});;
 		
-		tablaMotos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-			private static final long serialVersionUID = 1L;
-			
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		//Se establece el renderer para el contenido
+		tablaMotos.setDefaultRenderer(Object.class, (table, value, isSelected, hasFocus, row, column)-> {
+			JLabel lblContenido = new JLabel(value.toString());
 				
-				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				
-				//Damos un fondo mas grisaceo a las filas pares para diferenciar mejor la informacion de cada fila
-				if (row%2 == 0) {
-					c.setBackground(Color.LIGHT_GRAY);
-				} else {
-					c.setBackground(Color.WHITE);
-				}
-				return c;
-				
+			//Damos un fondo mas grisaceo a las filas pares para diferenciar mejor la informacion de cada fila
+			if (row%2 == 0) {
+				lblContenido.setBackground(Color.LIGHT_GRAY);
+			} else {
+				lblContenido.setBackground(Color.WHITE);
 			}
 			
+			//Si la celda está seleccionada se renderiza con el color de selección por defecto
+			if (isSelected) {
+				lblContenido.setBackground(tablaMotos.getSelectionBackground());
+				lblContenido.setForeground(tablaMotos.getSelectionForeground());
+			}
+			
+			//Si el valor es numérico se renderiza centrado
+			if(value instanceof Number) {
+					lblContenido.setHorizontalAlignment(JLabel.CENTER);
+			} else {
+				//Si el valor es texto pero representa un número se renderiza centrado tambien
+				String originalValue = value.toString();
+				String cleanValue = originalValue.replaceAll("[^0-9.]", "");
+				
+				if(!cleanValue.isEmpty() && (originalValue.matches("\\$?\\d{1,3}(,\\d{3})*(\\.\\d+)?") || originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) {
+					lblContenido.setHorizontalAlignment(JLabel.CENTER);
+				} else {
+					lblContenido.setText(value.toString());
+				}
+				
+				
+			}
+				
+			lblContenido.setOpaque(true);
+			
+			return lblContenido;
+				
 		});
 		
 		//Añadimos el listener al JTextField
