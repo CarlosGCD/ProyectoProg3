@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -65,6 +66,8 @@ public class VentanaMotos extends JFrame{
 		modeloTablaMotos = new DefaultTableModel();
 		tablaMotos = new JTable(modeloTablaMotos);
 		scrollTablaMotos = new JScrollPane(tablaMotos);
+		scrollTablaMotos.setBorder(new TitledBorder("Motos"));
+		tablaMotos.setFillsViewportHeight(true);
 		
 		//Añadimos los títulos de las columnas de la tabla
 		String [] titulos = {"MARCA", "MODELO", "COLOR", "MATRÍCULA", "CILINDRADA", "POTENCIA", "PRECIO", "PUNTOS"};
