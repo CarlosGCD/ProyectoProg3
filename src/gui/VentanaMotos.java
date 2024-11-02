@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +19,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaMotos extends JFrame{
@@ -116,6 +114,14 @@ public class VentanaMotos extends JFrame{
 		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
 			JLabel lblTitulos = new JLabel(value.toString());
 			lblTitulos.setHorizontalAlignment(JLabel.CENTER);
+			
+			switch (value.toString()){
+				case "MARCA":
+				case "MODELO": 
+				case "COLOR":
+				case "MATRÍCULA":
+					lblTitulos.setHorizontalAlignment(JLabel.LEFT);
+			}
 			
 			lblTitulos.setBackground(tablaMotos.getBackground());
 			lblTitulos.setForeground(tablaMotos.getForeground());
