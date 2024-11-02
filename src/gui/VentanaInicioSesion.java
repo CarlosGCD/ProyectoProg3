@@ -76,11 +76,11 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(gestionarUsuario);
 		
 		iniciarSesion.addActionListener((e)-> {
-			if (usuario.getText().equals("usuario") || contrasena.getPassword().equals("usuario")) {
+			if (usuario.getText().equals("") || contrasena.getPassword().equals("")) {
 				JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 				vaciarCampos();
 				vActual.dispose();
-				new VentanaMotos(vActual);
+				new VentanaMenu(vActual);
 			} else {
 				JOptionPane.showMessageDialog(null, "Nombre de usuario y/o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
 				vaciarCampos();

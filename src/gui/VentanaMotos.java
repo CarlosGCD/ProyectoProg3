@@ -56,9 +56,9 @@ public class VentanaMotos extends JFrame{
 		getContentPane().add(pNorte, BorderLayout.NORTH);
 		
 		//Creamos los botones del panel sur
-		btnComprar = new JButton("COMPRAR");
+		btnComprar = new JButton("Comprar");
 		pSur.add(btnComprar);
-		btnVolver = new JButton("VOLVER");
+		btnVolver = new JButton("Volver");
 		pSur.add(btnVolver);
 		
 		//Creación de la tabla
