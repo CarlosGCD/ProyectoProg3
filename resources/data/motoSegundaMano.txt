@@ -1,10 +1,10 @@
 Honda;CB0F;Rojo;ABP123;500 cc;47 CV;7,500€;7;2018;12,000 km;Buen estado
-Yamaha;MT-04;Blanco;XYO456;600 cc;70 CV;8,500€;10;2017;8,000 km;Excelente mantenimiento
-KTM;390 Duke;Naranja;VWX557;373 cc;44 CV;5,500€;9;2020;3,000 km;Excelente mantenimiento
-Yamaha;MT-09;Verde;XUO756;654 cc;75 CV;2,500€;4;2017;8,000 km;Estado regular
+Yamaha;MT-04;Blanco;XYO456;600 cc;70 CV;8,500€;10;2017;8,000 km;Perfecto estado
+KTM;390 Duke;Naranja;VWX557;373 cc;44 CV;5,500€;9;2020;3,000 km;Perfecto estado
+Yamaha;MT-09;Verde;XUO756;654 cc;75 CV;2,500€;4;2017;8,000 km;Mal estado
 Ducati;Monster 1800;Blanco;DPC456;190 cc;147 CV;16,500€;10;2010;3,000 km;Buen estado
 Honda;CYUS0F;Azul;ARP133;160 cc;47 CV;7,500€;7;2018;10,000 km;Buen estado
 Suzuki;GSX-R600;Negro;QWE987;599 cc;126 CV;9,000€;6;2016;15,000 km;Buen estado
-BMW;F800X;Negro;FRW543;798 cc;90 CV;10,000€;8;2015;20,000 km;Estado regular
+BMW;F800X;Negro;FRW543;798 cc;90 CV;10,000€;8;2015;20,000 km;Mal estado
 Suzuki;GSX-R500;Blanco;QTE777;500 cc;153 CV;12,000€;10;2015;19,000 km;Buen estado
-BMW;F800R;Gris;GHD938;790 cc;50 CV;7,000€;9;2015;20,000 km;Excelente mantenimiento
+BMW;F800R;Gris;GHD938;790 cc;50 CV;7,000€;9;2015;20,000 km;Perfecto estado
