@@ -128,6 +128,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 			case "MODELO":
 			case "COLOR":
 			case "MATRÍCULA":
+			case "ESTADO":
 				lblTitulos.setHorizontalAlignment(JLabel.LEFT);
 			}
 
