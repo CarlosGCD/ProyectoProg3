@@ -55,7 +55,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		setSize(1600, 600);
 		setLocationRelativeTo(null);
-		setTitle("Inventario de Motos");
+		setTitle("Inventario de Motos de Segunda Mano");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Creación de los paneles y los añadimos a la ventana
