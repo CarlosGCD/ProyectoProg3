@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -23,10 +24,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableRowSorter;
 
 public class VentanaMotosSegundaMano extends JFrame {
 
@@ -41,7 +44,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 	protected JTextField txtFiltro;
 	protected JComboBox<String> cbTipo;
-	
+
 	protected int fila, columna;
 
 	public VentanaMotosSegundaMano(JFrame vAnterior) {
@@ -72,8 +75,21 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		// Creación de la tabla
 		modeloTablaMotos = new DefaultTableModel();
-		tablaMotos = new JTable(modeloTablaMotos);
+		tablaMotos = new JTable(modeloTablaMotos) {
+
+			private static final long serialVersionUID = 1L;
+
+			// Bloquea la edición de todas las celdas
+			@Override
+			public boolean isCellEditable(int row, int column) {
+
+				return false;
+			}
+		};
+
 		scrollTablaMotos = new JScrollPane(tablaMotos);
+		scrollTablaMotos.setBorder(new TitledBorder("Motos de segunda mano"));
+		tablaMotos.setFillsViewportHeight(true);
 
 		// Añadimos los títulos de las columnas de la tabla
 		String[] titulos = { "MARCA", "MODELO", "COLOR", "MATRÍCULA", "CILINDRADA", "POTENCIA", "PRECIO", "PUNTOS",
@@ -99,6 +115,39 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		// Se definen criterios de ordenación por defecto para cada columna
 		tablaMotos.setAutoCreateRowSorter(true);
+
+		// Configurar el RowSorter para personalizar el orden de cada columna
+		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTablaMotos);
+
+		// Configurar comparadores personalizados para las columnas de texto y numéricas
+		for (int i = 0; i < modeloTablaMotos.getColumnCount(); i++) {
+		    if (i < 4 || i == 10) {
+		        // Comparador para columnas de texto (orden alfabético ascendente)
+		        sorter.setComparator(i, Comparator.comparing(String::valueOf, String.CASE_INSENSITIVE_ORDER));
+		    } else if (i >= 4 && i <= 9) {
+		        // Comparador para columnas numéricas con unidades (orden descendente)
+		        sorter.setComparator(i, (o1, o2) -> {
+		            try {
+		                // Extraer la parte numérica del texto eliminando cualquier carácter no numérico (excepto comas y puntos)
+		                String numStr1 = o1.toString().replaceAll("[^\\d,]", "").replace(",", "");
+		                String numStr2 = o2.toString().replaceAll("[^\\d,]", "").replace(",", "");
+		                
+		                // Convertir los valores extraídos a Integer
+		                Integer num1 = numStr1.isEmpty() ? 0 : Integer.parseInt(numStr1);
+		                Integer num2 = numStr2.isEmpty() ? 0 : Integer.parseInt(numStr2);
+		                
+		                // Orden descendente
+		                return num2.compareTo(num1);
+		            } catch (NumberFormatException e) {
+		                // Si ocurre un error al parsear, considera los valores como iguales
+		                return 0;
+		            }
+		        });
+		    }
+		}
+
+		// Asignar el RowSorter personalizado a la tabla
+		tablaMotos.setRowSorter(sorter);
 
 		// Se modifica el modelo de selección de la tabla para que se pueda selecciona
 		// únicamente una fila
@@ -169,10 +218,10 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 				// Comprobar si el valor limpio no está vacío y si el original tiene el formato
 				// correcto
-				if (!cleanValue.isEmpty() && 
-					(originalValue.matches("\\d{1,3}(,\\d{3})*(\\.\\d+)?€") || // Formatonumérico con €
-					 originalValue.matches("\\d{1,3}(,\\d{3})*\\s?km") || // Formato numérico con km
-					 originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) { // Formato numérico con cc o CV
+				if (!cleanValue.isEmpty() && (originalValue.matches("\\d{1,3}(,\\d{3})*(\\.\\d+)?€") || // Formatonumérico
+																										// con €
+						originalValue.matches("\\d{1,3}(,\\d{3})*\\s?km") || // Formato numérico con km
+						originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) { // Formato numérico con cc o CV
 
 					lblContenido.setHorizontalAlignment(JLabel.CENTER);
 				} else {
@@ -181,11 +230,14 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 			}
 
-			if (row==fila && column==columna) {
-				lblContenido.setBackground(new Color(220, 240, 255)); //Cambiamos el fondo a un azul muy claro
+			if (row == fila && column == columna) {
+				lblContenido.setBackground(new Color(220, 240, 255)); // Cambiamos el fondo a un azul muy claro
 				lblContenido.setForeground(tablaMotos.getSelectionForeground());
-				lblContenido.setFont(lblContenido.getFont().deriveFont(Font.BOLD | Font.ITALIC, lblContenido.getFont().getSize2D() + 1)); 
-				//Cambiamos el formato del texto para resaltar más la celda sobre la que esta el ratón pero sin sobrecargar la tabla, e incrementamos el tamaño del texto en 1
+				lblContenido.setFont(lblContenido.getFont().deriveFont(Font.BOLD | Font.ITALIC,
+						lblContenido.getFont().getSize2D() + 1));
+				// Cambiamos el formato del texto para resaltar más la celda sobre la que esta
+				// el ratón pero sin sobrecargar la tabla, e incrementamos el tamaño del texto
+				// en 1
 			}
 			lblContenido.setOpaque(true);
 
@@ -193,7 +245,8 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		});
 
-		//El color de fondo de la celda cambiará a NO SE QUE COLOR cuando el puntero del ráton pase sobre ella
+		// El color de fondo de la celda cambiará a NO SE QUE COLOR cuando el puntero
+		// del ráton pase sobre ella
 		tablaMotos.addMouseMotionListener(new MouseMotionListener() {
 
 			@Override
@@ -202,20 +255,23 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				//Cada vez que se mueva el ratón queremos saber en qué fila y columna de la tabla está el puntero
-				//Obtenemos las coordenadas en las que está el puntero del ratón
+				// Cada vez que se mueva el ratón queremos saber en qué fila y columna de la
+				// tabla está el puntero
+				// Obtenemos las coordenadas en las que está el puntero del ratón
 				Point p = e.getPoint();
-				//Obtenemos la fila de la tabla situada en el punto p
+				// Obtenemos la fila de la tabla situada en el punto p
 				fila = tablaMotos.rowAtPoint(p);
-				//Obtenemos la columna de la tabla situada en el punto p
+				// Obtenemos la columna de la tabla situada en el punto p
 				columna = tablaMotos.columnAtPoint(p);
-				//Forzamos a que se vuelva a aplicar el Renderer
+				// Forzamos a que se vuelva a aplicar el Renderer
 				tablaMotos.repaint();
 			}
-			
+
 		});
-		
-		//Implementamos el mouseListener para saber cuando sale el raton de la tabla, para devolverle el fondo anterior a la ultima celda sobre la que ha estado el raton, sino se queda pintada
+
+		// Implementamos el mouseListener para saber cuando sale el raton de la tabla,
+		// para devolverle el fondo anterior a la ultima celda sobre la que ha estado el
+		// raton, sino se queda pintada
 		tablaMotos.addMouseListener(new MouseListener() {
 
 			@Override
@@ -240,7 +296,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 				columna = -1;
 				tablaMotos.repaint();
 			}
-			
+
 		});
 		// Añadimos el listener al JTextField
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
