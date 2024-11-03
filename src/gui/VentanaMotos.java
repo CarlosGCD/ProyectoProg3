@@ -118,6 +118,10 @@ public class VentanaMotos extends JFrame{
 		
 		header.setPreferredSize(new Dimension(header.getPreferredSize().width, 28));
 		
+		//Habilitar las líneas de las celdas de la tabla
+		tablaMotos.setShowGrid(true);
+		tablaMotos.setGridColor(Color.DARK_GRAY);
+		
 		//Se establece el renderer para la cabecera
 		tablaMotos.getTableHeader().setDefaultRenderer((table, value, isSelected, hasFocus, row, column)-> {
 			JLabel lblTitulos = new JLabel(value.toString());
@@ -133,10 +137,11 @@ public class VentanaMotos extends JFrame{
 					lblTitulos.setHorizontalAlignment(JLabel.LEFT);
 			}
 			
-			lblTitulos.setBackground(tablaMotos.getBackground());
-			lblTitulos.setForeground(tablaMotos.getForeground());
+			lblTitulos.setBackground(new Color(173, 216, 230)); //Azul claro
+		    lblTitulos.setForeground(Color.BLACK); 
 			
 			lblTitulos.setOpaque(true);
+			
 			
 			return lblTitulos;
 		});;
@@ -152,9 +157,9 @@ public class VentanaMotos extends JFrame{
 				lblContenido.setBackground(Color.WHITE);
 			}
 			
-			//Si la celda está seleccionada se renderiza con el color de selección por defecto
+			//Si la celda está seleccionada se renderiza con un amarillo suave
 			if (isSelected) {
-				lblContenido.setBackground(tablaMotos.getSelectionBackground());
+				lblContenido.setBackground(new Color(255, 255, 204));
 				lblContenido.setForeground(tablaMotos.getSelectionForeground());
 			}
 			
