@@ -6,6 +6,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -37,6 +41,8 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 	protected JTextField txtFiltro;
 	protected JComboBox<String> cbTipo;
+	
+	protected int fila, columna;
 
 	public VentanaMotosSegundaMano(JFrame vAnterior) {
 		super();
@@ -174,12 +180,67 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 			}
 
+			if (row==fila && column==columna) {
+				lblContenido.setBackground(new Color(220, 240, 255)); //Cambiamos el fondo a un azul muy claro
+				lblContenido.setForeground(tablaMotos.getSelectionForeground());
+				lblContenido.setFont(lblContenido.getFont().deriveFont(Font.BOLD | Font.ITALIC, lblContenido.getFont().getSize2D() + 1)); 
+				//Cambiamos el formato del texto para resaltar más la celda sobre la que esta el ratón pero sin sobrecargar la tabla, e incrementamos el tamaño del texto en 1
+			}
 			lblContenido.setOpaque(true);
 
 			return lblContenido;
 
 		});
 
+		//El color de fondo de la celda cambiará a NO SE QUE COLOR cuando el puntero del ráton pase sobre ella
+		tablaMotos.addMouseMotionListener(new MouseMotionListener() {
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				//Cada vez que se mueva el ratón queremos saber en qué fila y columna de la tabla está el puntero
+				//Obtenemos las coordenadas en las que está el puntero del ratón
+				Point p = e.getPoint();
+				//Obtenemos la fila de la tabla situada en el punto p
+				fila = tablaMotos.rowAtPoint(p);
+				//Obtenemos la columna de la tabla situada en el punto p
+				columna = tablaMotos.columnAtPoint(p);
+				//Forzamos a que se vuelva a aplicar el Renderer
+				tablaMotos.repaint();
+			}
+			
+		});
+		
+		//Implementamos el mouseListener para saber cuando sale el raton de la tabla, para devolverle el fondo anterior a la ultima celda sobre la que ha estado el raton, sino se queda pintada
+		tablaMotos.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				fila = -1;
+				columna = -1;
+				tablaMotos.repaint();
+			}
+			
+		});
 		// Añadimos el listener al JTextField
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
 
