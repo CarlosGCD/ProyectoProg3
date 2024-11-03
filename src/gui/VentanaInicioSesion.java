@@ -26,8 +26,8 @@ public class VentanaInicioSesion extends JFrame{
 	protected JLabel textoContrasena;
 	protected JLabel titulo;
 	protected JButton iniciarSesion;
-	protected JButton registrarse;
-	protected JButton gestionarUsuario;
+	protected JButton registrarseUsuario;
+	protected JButton registrarseTrabajador;
 	
 	protected JFrame vActual;
 	
@@ -56,7 +56,7 @@ public class VentanaInicioSesion extends JFrame{
 		textoUsuario.setBounds(90, 60, 200, 30);
 		panelSesion.add(textoUsuario);
 
-		textoContrasena = new JLabel("Password: ");
+		textoContrasena = new JLabel("Contraseña: ");
 		textoContrasena.setBounds(68, 100, 200, 30);
 		panelSesion.add(textoContrasena);
 
@@ -70,11 +70,11 @@ public class VentanaInicioSesion extends JFrame{
 		
 	
 		iniciarSesion = new JButton("Iniciar sesion");
-		registrarse = new JButton("Registrarse");
-		gestionarUsuario = new JButton("Gestionar");
+		registrarseUsuario = new JButton("Registrar usuario");
+		registrarseTrabajador = new JButton("Registrar trabajador");
 		panelBotones.add(iniciarSesion);
-		panelBotones.add(registrarse);
-		panelBotones.add(gestionarUsuario);
+		panelBotones.add(registrarseUsuario);
+		panelBotones.add(registrarseTrabajador);
 		
 		iniciarSesion.addActionListener((e)-> {
 			if (usuario.getText().equals("") || contrasena.getPassword().equals("")) {
@@ -86,6 +86,16 @@ public class VentanaInicioSesion extends JFrame{
 				JOptionPane.showMessageDialog(null, "Nombre de usuario y/o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
 				vaciarCampos();
 			}
+		});
+		
+		registrarseUsuario.addActionListener((e) -> {
+			vActual.dispose();
+			new VentanaRegistroUsuario();
+		});
+		
+		registrarseTrabajador.addActionListener((e) -> {
+			vActual.dispose();
+			new VentanaRegistroTrabajador();
 		});
 		
 		
