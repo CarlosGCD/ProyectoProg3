@@ -67,7 +67,7 @@ super();
       
         botonRegistrar = new JButton("Registrarse");
         botonRegistrar.addActionListener((e) -> {
-			if (textoCodigo.getText() != "1234") {
+			if (Integer.parseInt(textoCodigo.getText()) != 1234) {
 				JOptionPane.showMessageDialog(null, "Codigo incorrecto");
 				return;
 			}
