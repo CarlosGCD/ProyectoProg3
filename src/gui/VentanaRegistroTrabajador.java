@@ -70,8 +70,7 @@ super();
 			if (Integer.parseInt(textoCodigo.getText()) != 1234) {
 				JOptionPane.showMessageDialog(null, "Codigo incorrecto");
 				return;
-			}
-			if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
+			}else if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;
 			}else {
