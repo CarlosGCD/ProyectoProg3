@@ -53,19 +53,19 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.setLayout(new GridLayout(1, 3));
 
 		textoUsuario = new JLabel("Usuario: ");
-		textoUsuario.setBounds(90, 60, 200, 30);
+		textoUsuario.setBounds(180, 60, 200, 30);
 		panelSesion.add(textoUsuario);
 
 		textoContrasena = new JLabel("Contraseña: ");
-		textoContrasena.setBounds(68, 100, 200, 30);
+		textoContrasena.setBounds(160, 100, 200, 30);
 		panelSesion.add(textoContrasena);
 
 		usuario = new JTextField();
-		usuario.setBounds(142, 65, 150, 20);
+		usuario.setBounds(235, 65, 150, 20);
 		panelSesion.add(usuario);
 
 		contrasena = new JPasswordField();
-		contrasena.setBounds(142, 105, 150, 20);
+		contrasena.setBounds(235, 105, 150, 20);
 		panelSesion.add(contrasena);
 		
 	
@@ -104,7 +104,7 @@ public class VentanaInicioSesion extends JFrame{
 		this.add(panelBotones, BorderLayout.SOUTH);
 		
 		this.setTitle("Inicio de sesion");
-		this.setSize(400, 500);
+		this.setSize(600, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
