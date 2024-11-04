@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class VentanaInicioSesion extends JFrame{
@@ -23,9 +24,12 @@ public class VentanaInicioSesion extends JFrame{
 	protected JLabel textoUsuario;
 	protected JLabel textoContrasena;
 	protected JLabel titulo;
+	protected JLabel textoTrabajador;
 	protected JButton iniciarSesion;
 	protected JButton registrarseUsuario;
 	protected JButton registrarseTrabajador;
+	protected JRadioButton siTrabajador;
+	protected JRadioButton noTrabajador;
 	
 	protected JFrame vActual;
 	
@@ -51,20 +55,42 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.setLayout(new GridLayout(1, 3));
 
 		textoUsuario = new JLabel("Usuario: ");
-		textoUsuario.setBounds(180, 60, 200, 30);
+		textoUsuario.setBounds(180, 0, 200, 30);
 		panelSesion.add(textoUsuario);
 
 		textoContrasena = new JLabel("Contraseña: ");
-		textoContrasena.setBounds(160, 100, 200, 30);
+		textoContrasena.setBounds(160, 40, 200, 30);
 		panelSesion.add(textoContrasena);
 
+		textoTrabajador = new JLabel("¿Deseas entrar como trabajador? ");
+		textoTrabajador.setBounds(180, 80, 200, 30);
+		panelSesion.add(textoTrabajador);
+		
 		usuario = new JTextField();
-		usuario.setBounds(235, 65, 150, 20);
+		usuario.setBounds(235, 5, 150, 20);
 		panelSesion.add(usuario);
 
 		contrasena = new JPasswordField();
-		contrasena.setBounds(235, 105, 150, 20);
+		contrasena.setBounds(235, 45, 150, 20);
 		panelSesion.add(contrasena);
+		
+		siTrabajador = new JRadioButton("si");
+		siTrabajador.setBounds(200, 110, 20, 20);
+		panelSesion.add(siTrabajador);
+		
+		noTrabajador = new JRadioButton("no");
+		noTrabajador.setBounds(200, 130, 20, 20);
+		panelSesion.add(noTrabajador);
+		
+		if (siTrabajador.isSelected()) {
+			noTrabajador.setSelected(false);
+		}
+		if (noTrabajador.isSelected()) {
+            siTrabajador.setSelected(false);
+        };
+         
+		
+		
 		
 	
 		iniciarSesion = new JButton("Iniciar sesion");
