@@ -694,6 +694,8 @@ public class VentanaMotos extends JFrame {
 
 		setVisible(true);
 	}
+	
+
 
 	private void cargarTabla() {
 		File f = new File("resources/data/motos.txt");
@@ -702,7 +704,7 @@ public class VentanaMotos extends JFrame {
 			while (sc.hasNextLine()) {
 				String linea = sc.nextLine();
 				String[] datos = linea.split(";");
-
+				
 				String marca = datos[0];
 				String modelo = datos[1];
 				String color = datos[2];
@@ -714,11 +716,14 @@ public class VentanaMotos extends JFrame {
 
 				Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio, puntos };
 				modeloTablaMotos.addRow(fila);
+				tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }

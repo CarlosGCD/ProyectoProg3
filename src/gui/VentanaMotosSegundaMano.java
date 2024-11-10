@@ -922,6 +922,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 				Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio, puntos,
 						anioFabricacion, kilometraje, estado };
 				modeloTablaMotos.addRow(fila);
+				tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 			}
 			sc.close();
 		} catch (FileNotFoundException e) {
