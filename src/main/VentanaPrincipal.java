@@ -1,6 +1,8 @@
 package main;
 
 import javax.swing.SwingUtilities;
+
+import gui.VentanaInfoMoto;
 import gui.VentanaInicioSesion;
 
 public class VentanaPrincipal {
