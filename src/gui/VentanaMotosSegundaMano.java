@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -891,6 +892,56 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		});
 
+		
+		tablaMotos.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = tablaMotos.rowAtPoint(e.getPoint());		
+				
+				if (row >= 0) {
+                    
+                    String marca = (String) modeloTablaMotos.getValueAt(row, 0);
+                    String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
+                    String color = (String) modeloTablaMotos.getValueAt(row, 2);
+                    String matricula = (String) modeloTablaMotos.getValueAt(row, 3);
+                    String cilindrada = (String) modeloTablaMotos.getValueAt(row, 4);
+                    String potencia = (String) modeloTablaMotos.getValueAt(row, 5);
+                    String precio = (String) modeloTablaMotos.getValueAt(row, 6);
+                    String puntuacion = String.valueOf(modeloTablaMotos.getValueAt(row, 7));
+                    
+                    SwingUtilities.invokeLater(() ->  {
+                    	VentanaInfoMoto ventana = new VentanaInfoMoto(marca, modelo, color, matricula, cilindrada, potencia, precio, puntuacion);
+                    	ventana.setVisible(true);
+                    });
+				}
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+		});
+		
 		btnVolver.addActionListener((e) -> {
 			vActual.dispose();
 			vAnterior.setVisible(true);

@@ -689,7 +689,6 @@ public class VentanaMotos extends JFrame {
 		});
 		
 		
-		
 		tablaMotos.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -697,7 +696,7 @@ public class VentanaMotos extends JFrame {
 				int row = tablaMotos.rowAtPoint(e.getPoint());		
 				
 				if (row >= 0) {
-                    // Obtener los datos de la fila seleccionada
+                    
                     String marca = (String) modeloTablaMotos.getValueAt(row, 0);
                     String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
                     String color = (String) modeloTablaMotos.getValueAt(row, 2);
