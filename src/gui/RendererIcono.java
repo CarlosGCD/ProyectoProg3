@@ -49,3 +49,4 @@ public class RendererIcono extends DefaultTableCellRenderer{
 		return new ImageIcon(imagen);
 	}
 }
+// me he ayudado de chatgpt para hacer el mapa y JLabel que me daban problemas.
