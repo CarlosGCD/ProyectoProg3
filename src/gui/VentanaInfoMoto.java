@@ -11,9 +11,17 @@ import javax.swing.JTextArea;
 public class VentanaInfoMoto extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static VentanaInfoMoto ventanaActual;
 	
 	public VentanaInfoMoto(String marca, String modelo, String color, String matricula, String cilindrada, String potencia, String precio, String puntuacion) {
 		
+		if (ventanaActual != null) {
+            ventanaActual.dispose();
+        }
+        ventanaActual = this;
+
+        setLocation(80, 250);
+        
 		setTitle("Detalles de la Moto");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 600);
