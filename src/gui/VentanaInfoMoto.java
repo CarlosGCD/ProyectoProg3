@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -20,7 +21,7 @@ public class VentanaInfoMoto extends JFrame {
         }
         ventanaActual = this;
 
-        setLocation(80, 250);
+        setLocation(100, 250);
         
 		setTitle("Detalles de la Moto");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -30,16 +31,18 @@ public class VentanaInfoMoto extends JFrame {
 		JPanel panelTitulo = new JPanel(new GridLayout(2,1));
 		
 		JLabel labelModelo = new JLabel(marca + " " + modelo + " " + color);
+		labelModelo.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		labelModelo.setHorizontalAlignment(JLabel.CENTER); 
 		
 		JPanel panelFoto = new JPanel();
 		JLabel foto = new JLabel("FOTO DE LA MOTO");
 		
 		JPanel panelCaracteristaicas = new JPanel(new GridLayout(4,1));
 		JLabel labelCilindrada = new JLabel("Cilindrada: " + cilindrada);
-		JLabel labelPotencia = new JLabel("Cilindrada: " + potencia);
-		JLabel labelColor = new JLabel("Cilindrada: " + color);
-		JLabel labelPrecio = new JLabel("Cilindrada: " + precio);
-		JLabel labelPuntuacion = new JLabel("Cilindrada: " + puntuacion);
+		JLabel labelPotencia = new JLabel("Potencia: " + potencia);
+		JLabel labelColor = new JLabel("Color: " + color);
+		JLabel labelPrecio = new JLabel("Precio: " + precio);
+		JLabel labelPuntuacion = new JLabel("Puntuacion: " + puntuacion);
 		
 		JPanel panelDescripcion = new JPanel(new BorderLayout());
 		JTextArea textoDescripcion = new JTextArea("Descripcion breve: " + marca + " " + modelo + "Lorem ipsum dolor sit amet consectetur adipiscing elit auctor habitant fusce cubilia eleifend neque justo quis, pretium sem enim gravida nec urna ornare nulla class cras potenti mollis montes bibendum.");
