@@ -64,6 +64,10 @@ public class VentanaRegistroUsuario extends JFrame{
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;
 			}else {
+				
+				
+				
+				
 				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 	        	new VentanaInicioSesion();
 				this.dispose();
