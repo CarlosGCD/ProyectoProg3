@@ -65,6 +65,7 @@ public class VentanaRegistroUsuario extends JFrame{
       
         botonRegistrar = new JButton("Registrarse");
         botonRegistrar.addActionListener((e) -> {
+        	MetodosDB.conectar();
 			if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;

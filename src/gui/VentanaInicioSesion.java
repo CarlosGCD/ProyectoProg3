@@ -35,6 +35,8 @@ public class VentanaInicioSesion extends JFrame{
 	
 	protected JFrame vActual;
 	
+
+	
 	public VentanaInicioSesion() {
 		super();
 		
@@ -102,21 +104,50 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(registrarseUsuario);
 		panelBotones.add(registrarseTrabajador);
 		
+		
+		
 		iniciarSesion.addActionListener((e)-> {
-			if (MetodosDB.existeUsuario(usuario.getText())) {
-				if(MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())){
-					JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
-					vaciarCampos();
-					vActual.dispose();
-					new VentanaMenu(vActual);
-				}else {
-					JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+			MetodosDB.conectar();
+			if (siTrabajador.isSelected()) {
+				if (MetodosDB.existeUsuario(usuario.getText())) {
+					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
+						if (MetodosDB.esTrabajador(usuario.getText())) {
+							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+							vaciarCampos();
+							vActual.dispose();
+							new VentanaMenu(vActual);
+						} else {
+							JOptionPane.showMessageDialog(null, "No eres trabajador", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+							vaciarCampos();
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+						vaciarCampos();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
 					vaciarCampos();
 				}
-				
 			} else {
-				JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
-				vaciarCampos();
+				if (MetodosDB.existeUsuario(usuario.getText())) {
+					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
+						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+						vaciarCampos();
+						vActual.dispose();
+						new VentanaMenu(vActual);
+					} else {
+						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+								JOptionPane.ERROR_MESSAGE);
+						vaciarCampos();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					vaciarCampos();
+				}
 			}
 		});
 		
