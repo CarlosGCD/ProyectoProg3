@@ -3,13 +3,13 @@ package domain;
 public class Persona {
 	public int cod;
 	public String nombre;
-	public String apellidos;
+	public String password;
 	public boolean trabajador;
 	public Persona(int cod, String nombre, String apellidos, boolean trabajador) {
 		super();
 		this.cod = cod;
 		this.nombre = nombre;
-		this.apellidos = apellidos;
+		this.password = apellidos;
 		this.trabajador = trabajador;
 	}
 	public int getCod() {
@@ -25,10 +25,10 @@ public class Persona {
 		this.nombre = nombre;
 	}
 	public String getApellidos() {
-		return apellidos;
+		return password;
 	}
 	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+		this.password = apellidos;
 	}
 	public boolean isTrabajador() {
 		return trabajador;
@@ -38,7 +38,7 @@ public class Persona {
 	}
 	@Override
 	public String toString() {
-		return "Persona [cod=" + cod + ", nombre=" + nombre + ", apellidos=" + apellidos + ", trabajador=" + trabajador
+		return "Persona [cod=" + cod + ", nombre=" + nombre + ", apellidos=" + password + ", trabajador=" + trabajador
 				+ "]";
 	}
 	
