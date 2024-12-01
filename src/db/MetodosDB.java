@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Random;
 
 public class MetodosDB {
 	
@@ -46,7 +48,7 @@ public class MetodosDB {
 			ps.setInt(1, codigo);
 			ps.setString(2, usuario);
 			ps.setString(3, password);
-			ps.setString(4, "false"); //cambiar a booleano cuando modifiquemos la base de datos
+			ps.setInt(4, 0); 
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -68,7 +70,7 @@ public class MetodosDB {
 			ps.setInt(1, codigo);
 			ps.setString(2, usuario);
 			ps.setString(3, password);
-			ps.setString(4, "true");
+			ps.setInt(4, 1);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -80,16 +82,19 @@ public class MetodosDB {
 	//comprueba si existe un usuario
 	public static boolean existeUsuario(String usuario) {
 		sentSQL = String.format("SELECT nombre FROM Personas WHERE nombre = '%s' ", usuario);
-
+		
 		try {
 			ps = conn.prepareStatement(sentSQL);
-			ps.executeQuery(sentSQL);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				return rs.getString("nombre").equals(usuario);
+			}
 			ps.close();
-			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			return false;
+			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	//compruebar que la contraseña es correcta
@@ -98,14 +103,14 @@ public class MetodosDB {
         
         try {
             ps = conn.prepareStatement(sentSQL);
-            ResultSet rs = ps.executeQuery(sentSQL);
-            if (rs.getString("password").equals(password)) {
-                return true;
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) { // Verifica si hay resultados
+                return rs.getString("password").equals(password);
             }
-            ps.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            return false;
+        	e.printStackTrace();
         }
         return false;
     }
@@ -116,22 +121,23 @@ public class MetodosDB {
 
 		try {
 			ps = conn.prepareStatement(sentSQL);
-			ResultSet rs = ps.executeQuery(sentSQL);
-			if (rs.getString("trabajador").equals("true")) {
-				return true;
-			}
-			ps.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return false;
-		}
-		return false;
+	        ps.setString(1, usuario); // Usa parámetros para evitar inyección SQL
+	        ResultSet rs = ps.executeQuery();
+	        
+	        if (rs.next()) { // Verifica si hay resultados
+	            return rs.getString("trabajador").equals("true");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 	
 	//genera un codigo aleatorio
 	public static int generarCodigo() {
-		double numero = Math.random() * 9000;
-		return (int) numero;
+		Random random = new Random();
+		int numero = random.nextInt(Integer.MAX_VALUE);
+		return numero;
 	}
 	
 	//comprueba si existe un codigo
@@ -141,16 +147,18 @@ public class MetodosDB {
 		
 		try {
 			ps = conn.prepareStatement(sentSQL);
-			ps.executeQuery(sentSQL);
-			ps.close();
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			return false;
+	        ps.setInt(1, codigo); // Usa parámetros
+	        ResultSet rs = ps.executeQuery();
+	        
+	        return rs.next(); // Retorna true si hay al menos un resultado
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 		}
-	}
-
 }
+
+
 
 
 

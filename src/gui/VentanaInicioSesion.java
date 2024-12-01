@@ -109,7 +109,10 @@ public class VentanaInicioSesion extends JFrame{
 		iniciarSesion.addActionListener((e)-> {
 			MetodosDB.conectar();
 			if (siTrabajador.isSelected()) {
-				if (MetodosDB.existeUsuario(usuario.getText())) {
+				if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
+					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+                    return;
+				}else if (MetodosDB.existeUsuario(usuario.getText())) {
 					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
 						if (MetodosDB.esTrabajador(usuario.getText())) {
 							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
@@ -132,7 +135,12 @@ public class VentanaInicioSesion extends JFrame{
 					vaciarCampos();
 				}
 			} else {
-				if (MetodosDB.existeUsuario(usuario.getText())) {
+				if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
+					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+					return;
+					
+				}
+				else if (MetodosDB.existeUsuario(usuario.getText())) {
 					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
 						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 						vaciarCampos();
