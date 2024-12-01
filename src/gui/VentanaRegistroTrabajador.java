@@ -12,6 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import db.MetodosDB;
+
 public class VentanaRegistroTrabajador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -73,7 +75,12 @@ super();
 			}else if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;
+			}else if(MetodosDB.existeUsuario(textoUsuario.getText())) {
+                JOptionPane.showMessageDialog(null, "El usuario ya existe");
+                return;
 			}else {
+				MetodosDB.registrarTrabajador(textoUsuario.getText(), textoContrasenia.getPassword().toString());
+				
 				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 	        	new VentanaInicioSesion();
 				this.dispose();

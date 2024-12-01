@@ -12,6 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import db.MetodosDB;
+
 public class VentanaRegistroUsuario extends JFrame{
 	private static final long serialVersionUID = 1L;
 	
@@ -22,6 +24,8 @@ public class VentanaRegistroUsuario extends JFrame{
 	private JPasswordField textoContrasenia;
 	private JButton botonRegistrar;
 	private JButton botonVolver;
+	
+	//private MetodosDB metodos = new MetodosDB();
 
 	
 	
@@ -64,13 +68,11 @@ public class VentanaRegistroUsuario extends JFrame{
 			if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;
-			} /*else if (MetodosBD.existeUsuario(textoUsuario.getText())) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe tener al menos 6 caracteres");
+			} else if (MetodosDB.existeUsuario(textoUsuario.getText())) {
+				JOptionPane.showMessageDialog(null, "El nombre de usuario ya existe");
 				return;
-			}*/else {
-				
-				
-				
+			}else {
+				MetodosDB.registrarUsuario(textoUsuario.getText(), textoContrasenia.getPassword().toString());	
 				
 				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 	        	new VentanaInicioSesion();

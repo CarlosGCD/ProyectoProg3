@@ -15,6 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import db.MetodosDB;
+
 public class VentanaInicioSesion extends JFrame{
 
 	private static final long serialVersionUID = 1L;
@@ -101,13 +103,19 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(registrarseTrabajador);
 		
 		iniciarSesion.addActionListener((e)-> {
-			if (usuario.getText().equals("") || contrasena.getPassword().equals("")) {
-				JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
-				vaciarCampos();
-				vActual.dispose();
-				new VentanaMenu(vActual);
+			if (MetodosDB.existeUsuario(usuario.getText())) {
+				if(MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())){
+					JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+					vaciarCampos();
+					vActual.dispose();
+					new VentanaMenu(vActual);
+				}else {
+					JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+					vaciarCampos();
+				}
+				
 			} else {
-				JOptionPane.showMessageDialog(null, "Nombre de usuario y/o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR", JOptionPane.ERROR_MESSAGE);
 				vaciarCampos();
 			}
 		});
