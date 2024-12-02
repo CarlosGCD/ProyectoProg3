@@ -105,6 +105,8 @@ public class VentanaInicioSesion extends JFrame{
 		panelBotones.add(registrarseTrabajador);
 		
 		
+		//para sacar el texto de un passwrodField
+		
 		
 		iniciarSesion.addActionListener((e)-> {
 			MetodosDB.conectar();
@@ -113,7 +115,9 @@ public class VentanaInicioSesion extends JFrame{
 					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
                     return;
 				}else if (MetodosDB.existeUsuario(usuario.getText())) {
-					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
+					char[] passwordArray = contrasena.getPassword();
+					String password = new String(passwordArray);
+					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
 						if (MetodosDB.esTrabajador(usuario.getText())) {
 							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 							vaciarCampos();
@@ -139,9 +143,10 @@ public class VentanaInicioSesion extends JFrame{
 					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 					return;
 					
-				}
-				else if (MetodosDB.existeUsuario(usuario.getText())) {
-					if (MetodosDB.comprobarPassword(usuario.getText(), contrasena.getPassword().toString())) {
+				}else if (MetodosDB.existeUsuario(usuario.getText())) {
+					char[] passwordArray = contrasena.getPassword();
+					String password = new String(passwordArray);
+					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
 						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 						vaciarCampos();
 						vActual.dispose();
@@ -151,6 +156,7 @@ public class VentanaInicioSesion extends JFrame{
 								JOptionPane.ERROR_MESSAGE);
 						vaciarCampos();
 					}
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
 							JOptionPane.ERROR_MESSAGE);

@@ -73,7 +73,7 @@ public class VentanaRegistroUsuario extends JFrame{
 				JOptionPane.showMessageDialog(null, "El nombre de usuario ya existe");
 				return;
 			}else {
-				MetodosDB.registrarUsuario(textoUsuario.getText(), textoContrasenia.getPassword().toString());	
+				MetodosDB.registrarPersona(textoUsuario.getText(), textoContrasenia.getPassword().toString(), 0);	
 				
 				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 	        	new VentanaInicioSesion();

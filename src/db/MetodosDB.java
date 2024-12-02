@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Random;
 
 public class MetodosDB {
@@ -35,7 +34,7 @@ public class MetodosDB {
 	
 	
 	//registrar un usuario
-	public static void registrarUsuario(String usuario, String password) {
+	public static void registrarPersona(String usuario, String password, int trabajador) {
 		sentSQL = "INSERT INTO Personas (cod,nombre, password, trabajador) VALUES (?, ?, ?, ?)";
 		
 		Integer codigo = generarCodigo();
@@ -48,7 +47,7 @@ public class MetodosDB {
 			ps.setInt(1, codigo);
 			ps.setString(2, usuario);
 			ps.setString(3, password);
-			ps.setInt(4, 0); 
+			ps.setInt(4, trabajador); 
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -121,11 +120,10 @@ public class MetodosDB {
 
 		try {
 			ps = conn.prepareStatement(sentSQL);
-	        ps.setString(1, usuario); // Usa parámetros para evitar inyección SQL
 	        ResultSet rs = ps.executeQuery();
 	        
 	        if (rs.next()) { // Verifica si hay resultados
-	            return rs.getString("trabajador").equals("true");
+	            return rs.getInt("trabajador") == 1;
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -147,10 +145,11 @@ public class MetodosDB {
 		
 		try {
 			ps = conn.prepareStatement(sentSQL);
-	        ps.setInt(1, codigo); // Usa parámetros
 	        ResultSet rs = ps.executeQuery();
 	        
-	        return rs.next(); // Retorna true si hay al menos un resultado
+			if (rs.next()) { // Verifica si hay resultados
+				return rs.getInt("cod") == codigo;
+			}
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }

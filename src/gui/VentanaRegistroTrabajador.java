@@ -80,7 +80,7 @@ super();
                 JOptionPane.showMessageDialog(null, "El usuario ya existe");
                 return;
 			}else {
-				MetodosDB.registrarTrabajador(textoUsuario.getText(), textoContrasenia.getPassword().toString());
+				MetodosDB.registrarPersona(textoUsuario.getText(), textoContrasenia.getPassword().toString(), 1);
 				
 				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 	        	new VentanaInicioSesion();
