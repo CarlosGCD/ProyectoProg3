@@ -55,29 +55,7 @@ public class MetodosDB {
 		}
 	}
 	
-	//registrar un trabajador
-	public static void registrarTrabajador(String usuario, String password) {
-		sentSQL = "INSERT INTO Personas (cod,nombre, password, trabajador) VALUES (?, ?, ?, ?)";
 
-		Integer codigo = generarCodigo();
-		while (existeCodigo(codigo)) {
-			codigo = generarCodigo();
-		}
-
-		try {
-			ps = conn.prepareStatement(sentSQL);
-			ps.setInt(1, codigo);
-			ps.setString(2, usuario);
-			ps.setString(3, password);
-			ps.setInt(4, 1);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
 	//comprueba si existe un usuario
 	public static boolean existeUsuario(String usuario) {
 		sentSQL = String.format("SELECT nombre FROM Personas WHERE nombre = '%s' ", usuario);
