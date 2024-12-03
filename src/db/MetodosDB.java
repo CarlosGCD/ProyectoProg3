@@ -56,6 +56,20 @@ public class MetodosDB {
 		}
 	}
 	
+	//borrar un usuario
+	public static void borrarPersona(String usuario) {
+		String sentSQL;
+		PreparedStatement ps;
+		sentSQL = String.format("DELETE FROM Personas WHERE nombre = '%s' ", usuario);
+
+		try {
+			ps = conn.prepareStatement(sentSQL);
+			ps.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	//comprueba si existe un usuario
 	public static boolean existeUsuario(String usuario) {

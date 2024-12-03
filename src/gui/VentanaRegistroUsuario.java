@@ -25,8 +25,6 @@ public class VentanaRegistroUsuario extends JFrame{
 	private JButton botonRegistrar;
 	private JButton botonVolver;
 	
-	//private MetodosDB metodos = new MetodosDB();
-
 	
 	
 	public VentanaRegistroUsuario() {

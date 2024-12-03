@@ -30,6 +30,7 @@ public class VentanaInicioSesion extends JFrame{
 	protected JButton iniciarSesion;
 	protected JButton registrarseUsuario;
 	protected JButton registrarseTrabajador;
+	protected JButton borrarUsuario;
 	protected JRadioButton siTrabajador;
 	protected JRadioButton noTrabajador;
 	
@@ -100,12 +101,12 @@ public class VentanaInicioSesion extends JFrame{
 		iniciarSesion = new JButton("Iniciar sesion");
 		registrarseUsuario = new JButton("Registrar usuario");
 		registrarseTrabajador = new JButton("Registrar trabajador");
+		borrarUsuario = new JButton("Borrar usuario");
 		panelBotones.add(iniciarSesion);
 		panelBotones.add(registrarseUsuario);
 		panelBotones.add(registrarseTrabajador);
+		panelBotones.add(borrarUsuario);
 		
-		
-		//para sacar el texto de un passwrodField
 		
 		
 		iniciarSesion.addActionListener((e)-> {
@@ -175,6 +176,10 @@ public class VentanaInicioSesion extends JFrame{
 			new VentanaRegistroTrabajador();
 		});
 		
+		borrarUsuario.addActionListener((e) -> {
+			vActual.dispose();
+			new VentanaBorrarUsuario();
+		});
 		
 		this.add(panelTitulo, BorderLayout.NORTH);
 		this.add(panelSesion, BorderLayout.CENTER);

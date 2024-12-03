@@ -14,24 +14,20 @@ import javax.swing.SwingConstants;
 
 import db.MetodosDB;
 
-public class VentanaRegistroTrabajador extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-
+public class VentanaBorrarUsuario extends JFrame{
+private static final long serialVersionUID = 1L;
+	
 	private JLabel titulo;
 	private JLabel usuario;
 	private JLabel contrasenia;
-	private JLabel codigo;
 	private JTextField textoUsuario;
-	private JTextField textoCodigo;
 	private JPasswordField textoContrasenia;
-	private JButton botonRegistrar;
+	private JButton botonBorrar;
 	private JButton botonVolver;
 	
-	
-	public VentanaRegistroTrabajador() {
+	public VentanaBorrarUsuario() {
 		super();
-		
+
 		JPanel panelTitulo = new JPanel();
 		panelTitulo.setLayout(new GridLayout(1,1));
 		JPanel panel1 = new JPanel();
@@ -39,7 +35,7 @@ public class VentanaRegistroTrabajador extends JFrame {
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new GridLayout(1,2));
 		
-		titulo = new JLabel("Registro de trabajador");
+		titulo = new JLabel("Borrar usuario");
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitulo.add(titulo);
 
@@ -55,38 +51,38 @@ public class VentanaRegistroTrabajador extends JFrame {
 		contrasenia.setBounds(69, 100, 200, 30);
 		panel1.add(contrasenia);
 		
+
+		
 		textoContrasenia = new JPasswordField();
 		textoContrasenia.setBounds(141, 105, 150, 20); 
         panel1.add(textoContrasenia);
 
-        codigo = new JLabel("Codigo: ");
-        codigo.setBounds(90, 140, 200, 30);
-        panel1.add(codigo);
         
-        textoCodigo = new JTextField();
-        textoCodigo.setBounds(141, 145, 150, 20);
-        panel1.add(textoCodigo);
       
-        botonRegistrar = new JButton("Registrarse");
-        botonRegistrar.addActionListener((e) -> {
+        botonBorrar = new JButton("Borrar");
+        botonBorrar.addActionListener((e) -> {
         	MetodosDB.conectar();
-			if (Integer.parseInt(textoCodigo.getText()) != 1234) {
-				JOptionPane.showMessageDialog(null, "Codigo incorrecto");
-				return;
-			}else if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
+			if (textoUsuario.getText().isEmpty() || textoContrasenia.getPassword().length == 0) {
 				JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
 				return;
-			}else if(MetodosDB.existeUsuario(textoUsuario.getText())) {
-                JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                return;
+			} else if (!MetodosDB.existeUsuario(textoUsuario.getText())) {
+				JOptionPane.showMessageDialog(null, "El nombre de usuario no existe");
+				return;
 			}else {
 				char[] passwordArray = textoContrasenia.getPassword();
 				String password = new String(passwordArray);
-				MetodosDB.registrarPersona(textoUsuario.getText(), password, 1);
-				
-				JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
-	        	new VentanaInicioSesion();
-				this.dispose();
+				if(MetodosDB.comprobarPassword(textoUsuario.getText(), password)) {
+					//mostrar mensaje de confirmacion para borrar usuario con un JOptionPane
+					if (JOptionPane.showConfirmDialog(null, "¿Estas seguro de que quieres borrar el usuario?") == 0) {
+						MetodosDB.borrarPersona(textoUsuario.getText());
+						JOptionPane.showMessageDialog(null, "Usuario borrado correctamente");
+			        	new VentanaInicioSesion();
+						this.dispose();
+					} 
+				} else {
+					JOptionPane.showMessageDialog(null, "La contraseña es incorrecta");
+					return;
+				}				
 			}
         
 		});
@@ -99,7 +95,7 @@ public class VentanaRegistroTrabajador extends JFrame {
         });
 			
 
-        panel2.add(botonRegistrar);
+        panel2.add(botonBorrar);
         panel2.add(botonVolver);
         
      
