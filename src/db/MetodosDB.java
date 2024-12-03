@@ -29,12 +29,13 @@ public class MetodosDB {
 	
 	
 	//METODOS DE LA BASE DE DATOS
-	public static String sentSQL;
-	public static PreparedStatement ps;
+
 	
 	
 	//registrar un usuario
 	public static void registrarPersona(String usuario, String password, int trabajador) {
+		String sentSQL;
+		PreparedStatement ps;
 		sentSQL = "INSERT INTO Personas (cod,nombre, password, trabajador) VALUES (?, ?, ?, ?)";
 		
 		Integer codigo = generarCodigo();
@@ -58,6 +59,8 @@ public class MetodosDB {
 
 	//comprueba si existe un usuario
 	public static boolean existeUsuario(String usuario) {
+		String sentSQL;
+		PreparedStatement ps;
 		sentSQL = String.format("SELECT nombre FROM Personas WHERE nombre = '%s' ", usuario);
 		
 		try {
@@ -76,6 +79,8 @@ public class MetodosDB {
 	
 	//compruebar que la contraseña es correcta
 	public static boolean comprobarPassword(String usuario, String password) {
+		String sentSQL;
+		PreparedStatement ps;
         sentSQL = String.format("SELECT password FROM Personas WHERE nombre = '%s' ", usuario);
         
         try {
@@ -94,6 +99,8 @@ public class MetodosDB {
 
 	//comprueba si un usuario es trabajador
 	public static boolean esTrabajador(String usuario) {
+		String sentSQL;
+		PreparedStatement ps;
 		sentSQL = String.format("SELECT trabajador FROM Personas WHERE nombre = '%s' ", usuario);
 
 		try {
@@ -118,7 +125,8 @@ public class MetodosDB {
 	
 	//comprueba si existe un codigo
 	public static boolean existeCodigo(int codigo) {
-		
+		String sentSQL;
+		PreparedStatement ps;
 		sentSQL = String.format("SELECT cod FROM Personas WHERE cod = '%d' ", codigo);
 		
 		try {
