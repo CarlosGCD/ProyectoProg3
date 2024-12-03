@@ -49,7 +49,7 @@ public class MetodosDB {
 			ps.setString(2, usuario);
 			ps.setString(3, password);
 			ps.setInt(4, trabajador); 
-			
+			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
