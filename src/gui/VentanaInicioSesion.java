@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
+
 import java.awt.GridLayout;
 import java.awt.Image;
 
@@ -151,7 +152,7 @@ public class VentanaInicioSesion extends JFrame{
 						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 						vaciarCampos();
 						vActual.dispose();
-						new VentanaMenu(vActual);
+						new VentanaCargar();
 					} else {
 						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
 								JOptionPane.ERROR_MESSAGE);

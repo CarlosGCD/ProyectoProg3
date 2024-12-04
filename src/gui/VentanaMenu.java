@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -109,7 +110,7 @@ private static final long serialVersionUID = 1L;
 		
 		btnVolver.addActionListener((e)-> {
 			vActual.dispose();
-			vAnterior.setVisible(true);
+			new VentanaInicioSesion();
 		});
 		add(pFondo);
 		
