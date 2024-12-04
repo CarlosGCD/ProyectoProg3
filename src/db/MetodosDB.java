@@ -50,6 +50,7 @@ public class MetodosDB {
 			ps.setString(3, password);
 			ps.setInt(4, trabajador); 
 			ps.execute();
+			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,6 +66,7 @@ public class MetodosDB {
 		try {
 			ps = conn.prepareStatement(sentSQL);
 			ps.execute();
+			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,6 +106,7 @@ public class MetodosDB {
             if (rs.next()) { // Verifica si hay resultados
                 return rs.getString("password").equals(password);
             }
+            ps.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
         	e.printStackTrace();
@@ -124,6 +127,7 @@ public class MetodosDB {
 	        if (rs.next()) { // Verifica si hay resultados
 	            return rs.getInt("trabajador") == 1;
 	        }
+	        ps.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
@@ -150,6 +154,7 @@ public class MetodosDB {
 			if (rs.next()) { // Verifica si hay resultados
 				return rs.getInt("cod") == codigo;
 			}
+			ps.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
