@@ -30,8 +30,7 @@ public class MetodosDB {
 	
 	//METODOS DE LA BASE DE DATOS
 
-	
-	
+
 	//registrar un usuario
 	public static void registrarPersona(String usuario, String password, int trabajador) {
 		String sentSQL;
@@ -85,6 +84,7 @@ public class MetodosDB {
 			if (rs.next()) {
 				return rs.getString("nombre").equals(usuario);
 			}
+			rs.close();
 			ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -106,6 +106,7 @@ public class MetodosDB {
             if (rs.next()) { // Verifica si hay resultados
                 return rs.getString("password").equals(password);
             }
+            rs.close();
             ps.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -127,6 +128,7 @@ public class MetodosDB {
 	        if (rs.next()) { // Verifica si hay resultados
 	            return rs.getInt("trabajador") == 1;
 	        }
+	        rs.close();
 	        ps.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -154,6 +156,7 @@ public class MetodosDB {
 			if (rs.next()) { // Verifica si hay resultados
 				return rs.getInt("cod") == codigo;
 			}
+			rs.close();
 			ps.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
