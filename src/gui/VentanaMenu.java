@@ -97,7 +97,7 @@ private static final long serialVersionUID = 1L;
 		pNorte.add(lbienvenida);
 		
 		//Creamos el JLabel para el hilo
-		lblOferta = new JLabel("OFERTAS DE NAVIDAD!!! TODO AL 30% NO TE LO PIERDAS!!!");
+		lblOferta = new JLabel("¡¡¡OFERTAS DE NAVIDAD!!! ¡¡¡TODO AL 30% NO TE LO PIERDAS!!!");
 		lblOferta.setFont(new Font("Times New Roman", Font.BOLD, 30));
 		
 		lblOferta.setSize(lblOferta.getPreferredSize());
