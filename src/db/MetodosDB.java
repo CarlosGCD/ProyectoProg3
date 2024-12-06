@@ -26,6 +26,17 @@ public class MetodosDB {
 			
 	}
 	
+	// Nuevo método para cerrar la conexión
+    public static void desconectar() {
+        try {
+            if (conn != null) {
+                conn.close();
+                conn = null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al cerrar la conexión con la base de datos");
+        }
+    }
 	
 	
 	//METODOS DE LA BASE DE DATOS

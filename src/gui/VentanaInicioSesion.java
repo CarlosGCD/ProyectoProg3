@@ -165,6 +165,7 @@ public class VentanaInicioSesion extends JFrame{
 					vaciarCampos();
 				}
 			}
+			MetodosDB.desconectar();
 		});
 		
 		registrarseUsuario.addActionListener((e) -> {

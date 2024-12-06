@@ -88,6 +88,7 @@ public class VentanaRegistroTrabajador extends JFrame {
 	        	new VentanaInicioSesion();
 				this.dispose();
 			}
+			MetodosDB.desconectar();
         
 		});
         

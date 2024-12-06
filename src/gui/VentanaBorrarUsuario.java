@@ -84,7 +84,7 @@ private static final long serialVersionUID = 1L;
 					return;
 				}				
 			}
-        
+			MetodosDB.desconectar();
 		});
         
         botonVolver = new JButton("Volver");

@@ -79,6 +79,7 @@ public class VentanaRegistroUsuario extends JFrame{
 	        	new VentanaInicioSesion();
 				this.dispose();
 			}
+			MetodosDB.desconectar();
         
 		});
         
