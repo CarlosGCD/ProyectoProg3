@@ -1,11 +1,15 @@
 package db;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
+import java.util.Scanner;
 
 public class MetodosDB {
 	
@@ -41,6 +45,76 @@ public class MetodosDB {
 	
 	//METODOS DE LA BASE DE DATOS
 
+    //Método para crear la tabla de motos y la de motosSegundaMano
+    public static void crearTablas() {
+    	String sql = "CREATE TABLE IF NOT EXISTS Motos(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String)";
+    	try {
+    		Statement stmt = conn.createStatement();
+    		stmt.executeUpdate(sql);
+    		sql = "CREATE TABLE IF NOT EXISTS motosSegundaMano(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, anioFabricacion int, kilometraje int, estado String)";
+    		stmt.executeUpdate(sql);
+    		stmt.close();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
+    //Métodos para cargar las motos a la base de datos desde los ficheros
+    public static void cargarMotos(String nomfich) {
+    	try {
+    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?)";
+    		PreparedStatement ps = conn.prepareStatement(sql);
+    		Scanner sc = new Scanner(new File(nomfich)); 
+    		while(sc.hasNextLine()) {
+    			String linea = sc.nextLine();
+    			String [] datos = linea.split(";");
+    			
+    			ps.setString(1, datos[0]);
+    			ps.setString(2, datos[1]);
+    			ps.setString(3, datos[2]);
+    			ps.setString(4, datos[3]);
+    			ps.setString(5, datos[4]);
+    			ps.setString(6, datos[5]);
+    			ps.setString(7, datos[6]);
+    			ps.execute();
+    		}
+    		sc.close();
+    		ps.close();
+    	} catch (FileNotFoundException e) {
+    		e.printStackTrace();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    public static void cargarMotosSegundaMano(String nomfich) {
+    	try {
+    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?,?,?,?)";
+    		PreparedStatement ps = conn.prepareStatement(sql);
+    		Scanner sc = new Scanner(new File(nomfich)); 
+    		while(sc.hasNextLine()) {
+    			String linea = sc.nextLine();
+    			String [] datos = linea.split(";");
+    			
+    			ps.setString(1, datos[0]);
+    			ps.setString(2, datos[1]);
+    			ps.setString(3, datos[2]);
+    			ps.setString(4, datos[3]);
+    			ps.setString(5, datos[4]);
+    			ps.setString(6, datos[5]);
+    			ps.setString(7, datos[6]);
+    			ps.setInt(8, Integer.parseInt(datos[7]));
+    			ps.setInt(9, Integer.parseInt(datos[8]));
+    			ps.setString(10, datos[9]);
+    			ps.execute();
+    		}
+    		sc.close();
+    		ps.close();
+    	} catch (FileNotFoundException e) {
+    		e.printStackTrace();
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    }
 
 	//registrar un usuario
 	public static void registrarPersona(String usuario, String password, int trabajador) {
