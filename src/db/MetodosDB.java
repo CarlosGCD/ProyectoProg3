@@ -8,8 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import domain.Moto;
+import domain.MotoSegundaMano;
 
 public class MetodosDB {
 	
@@ -47,11 +52,11 @@ public class MetodosDB {
 
     //Método para crear la tabla de motos y la de motosSegundaMano
     public static void crearTablas() {
-    	String sql = "CREATE TABLE IF NOT EXISTS Motos(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String)";
+    	String sql = "CREATE TABLE IF NOT EXISTS Motos(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, puntos int)";
     	try {
     		Statement stmt = conn.createStatement();
     		stmt.executeUpdate(sql);
-    		sql = "CREATE TABLE IF NOT EXISTS motosSegundaMano(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, anioFabricacion int, kilometraje int, estado String)";
+    		sql = "CREATE TABLE IF NOT EXISTS MotosSegundaMano(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, puntos int, anioFabricacion int, kilometraje int, estado String)";
     		stmt.executeUpdate(sql);
     		stmt.close();
     	} catch (SQLException e) {
@@ -61,7 +66,7 @@ public class MetodosDB {
     //Métodos para cargar las motos a la base de datos desde los ficheros
     public static void cargarMotos(String nomfich) {
     	try {
-    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?)";
+    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?,?)";
     		PreparedStatement ps = conn.prepareStatement(sql);
     		Scanner sc = new Scanner(new File(nomfich)); 
     		while(sc.hasNextLine()) {
@@ -75,6 +80,7 @@ public class MetodosDB {
     			ps.setString(5, datos[4]);
     			ps.setString(6, datos[5]);
     			ps.setString(7, datos[6]);
+    			ps.setInt(8, Integer.parseInt(datos[7]));
     			ps.execute();
     		}
     		sc.close();
@@ -88,7 +94,7 @@ public class MetodosDB {
     
     public static void cargarMotosSegundaMano(String nomfich) {
     	try {
-    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?,?,?,?)";
+    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     		PreparedStatement ps = conn.prepareStatement(sql);
     		Scanner sc = new Scanner(new File(nomfich)); 
     		while(sc.hasNextLine()) {
@@ -104,7 +110,8 @@ public class MetodosDB {
     			ps.setString(7, datos[6]);
     			ps.setInt(8, Integer.parseInt(datos[7]));
     			ps.setInt(9, Integer.parseInt(datos[8]));
-    			ps.setString(10, datos[9]);
+    			ps.setInt(10, Integer.parseInt(datos[9]));
+    			ps.setString(11, datos[10]);
     			ps.execute();
     		}
     		sc.close();
@@ -114,6 +121,63 @@ public class MetodosDB {
     	} catch (SQLException e) {
     		e.printStackTrace();
     	}
+    }
+    
+    public static List<Moto> obtenerMotos() {
+    	List<Moto> lm = new ArrayList<>();
+    	String sql = "SELECT * FROM Motos";
+    	try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				String marca = rs.getString("marca");
+				String modelo = rs.getString("modelo");
+				String color = rs.getString("color");
+				String matricula = rs.getString("matricula");
+				int cilindrada = rs.getInt("cilindrada");
+				int potencia = rs.getInt("potencia");
+				int precio = rs.getInt("precio");
+				int puntos = rs.getInt("puntos");
+				Moto m = new Moto(marca, modelo, color, matricula, cilindrada, potencia, precio, puntos);
+				lm.add(m);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	return lm;
+    }
+    
+    public static List<MotoSegundaMano> obtenerMotosSegundaMano() {
+    	List<MotoSegundaMano> lmsm = new ArrayList<>();
+    	String sql = "SELECT * FROM MotosSegundaMano";
+    	try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				String marca = rs.getString("marca");
+				String modelo = rs.getString("modelo");
+				String color = rs.getString("color");
+				String matricula = rs.getString("matricula");
+				int cilindrada = rs.getInt("cilindrada");
+				int potencia = rs.getInt("potencia");
+				int precio = rs.getInt("precio");
+				int puntos = rs.getInt("puntos");
+				int anioFabricacion = rs.getInt("anioFabricacion");
+				int kilometraje = rs.getInt("kilometraje");
+				String estado = rs.getString("estado");
+				MotoSegundaMano msm = new MotoSegundaMano(marca, modelo, color, matricula, cilindrada, potencia, precio, puntos, anioFabricacion, kilometraje, estado);
+				lmsm.add(msm);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	return lmsm;
     }
 
 	//registrar un usuario

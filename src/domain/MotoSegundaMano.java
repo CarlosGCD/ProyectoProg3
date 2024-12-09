@@ -19,6 +19,16 @@ public class MotoSegundaMano extends Moto {
 		this.kilometraje = kilometraje;
 		this.estado = estado;
 	}
+	
+	// Añadimos el nuevo constructor que necesitamos para el metodo de BD
+    public MotoSegundaMano(String marca, String modelo, String color, String matricula, 
+                          int cilindrada, int potencia, int precio, int puntos,
+                          int anioFabricacion, int kilometraje, String estado) {
+        super(marca, modelo, color, matricula, cilindrada, potencia, precio, puntos);
+        this.anioFabricacion = anioFabricacion;
+        this.kilometraje = kilometraje;
+        this.estado = estado;
+    }
 
 	public int getAnioFabricacion() {
 		return anioFabricacion;
