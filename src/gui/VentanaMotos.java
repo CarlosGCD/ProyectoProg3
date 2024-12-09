@@ -35,6 +35,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 import db.MetodosDB;
+import domain.AlquilerDuracion;
 import domain.Moto;
 
 public class VentanaMotos extends JFrame {
@@ -43,7 +44,7 @@ public class VentanaMotos extends JFrame {
 
 	protected JFrame vActual, vAnterior;
 	protected JPanel pNorte, pSur, pCentro;
-	protected JButton btnVolver, btnComprar;
+	protected JButton btnVolver, btnComprar, btnAlquilar;
 
 	protected JTable tablaMotos;
 	protected DefaultTableModel modeloTablaMotos;
@@ -76,6 +77,8 @@ public class VentanaMotos extends JFrame {
 		getContentPane().add(pNorte, BorderLayout.NORTH);
 
 		// Creamos los botones del panel sur
+		btnAlquilar = new JButton("Alquilar");
+		pSur.add(btnAlquilar);
 		btnComprar = new JButton("Comprar");
 		pSur.add(btnComprar);
 		btnVolver = new JButton("Volver");
@@ -775,6 +778,46 @@ public class VentanaMotos extends JFrame {
 		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		    }
 		});
+		
+		btnAlquilar.addActionListener((e) -> {
+		    int selectedRow = tablaMotos.getSelectedRow();
+
+		    if (selectedRow >= 0) {
+		        
+		        String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1); 
+        
+		        int usuarioId = MetodosDB.obtenerUsuarioActual();
+	     
+		        AlquilerDuracion[] opciones = AlquilerDuracion.values();
+		        AlquilerDuracion seleccion = (AlquilerDuracion) JOptionPane.showInputDialog(
+		                this,
+		                "Seleccione duración de alquiler:",
+		                "Opciones de Alquiler",
+		                JOptionPane.QUESTION_MESSAGE,
+		                null,
+		                opciones,
+		                opciones[0]
+		        );
+
+		        if (seleccion != null) {
+
+		            boolean exito = MetodosDB.insertarAlquiler(usuarioId, modeloMoto, seleccion);
+
+		            if (exito) {
+
+		                String alquilerRealizado = MetodosDB.obtenerAlquilerRealizado(usuarioId, modeloMoto);
+		                System.out.println(alquilerRealizado);
+
+		                JOptionPane.showMessageDialog(this, "Alquiler registrado exitosamente.");
+		            } else {
+		                JOptionPane.showMessageDialog(this, "Error al registrar el alquiler.", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
+		        }
+		    } else {
+		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		    }
+		});
+
 
 		setVisible(true);
 	}

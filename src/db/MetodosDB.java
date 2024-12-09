@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import domain.AlquilerDuracion;
 import domain.Moto;
 import domain.MotoSegundaMano;
 
@@ -396,6 +397,66 @@ public class MetodosDB {
 
 	    return resultado.toString();
 	}
+	
+	public static boolean insertarAlquiler(int usuarioId, String modeloMoto, AlquilerDuracion duracion) {
+	    String sql = "INSERT INTO Alquilar (persona_id, moto_modelo, fecha, duracion) VALUES (?, ?, date('now'), ?);";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, usuarioId);
+	        pstmt.setString(2, modeloMoto);
+	        pstmt.setInt(3, duracion.getMeses());
+
+	        pstmt.executeUpdate();
+	        return true;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        desconectar();
+	    }
+	}
+	
+	public static String obtenerAlquilerRealizado(int usuarioId, String modeloMoto) {
+	    String sql = "SELECT persona_id, moto_modelo, fecha, duracion FROM Alquilar WHERE persona_id = ? AND moto_modelo = ? ORDER BY fecha DESC LIMIT 1;";
+	    StringBuilder resultado = new StringBuilder();
+
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, usuarioId);
+	        pstmt.setString(2, modeloMoto);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                int personaId = rs.getInt("persona_id");
+	                String motoModelo = rs.getString("moto_modelo");
+	                String fecha = rs.getString("fecha");
+	                int duracion = rs.getInt("duracion");
+
+	                resultado.append("Alquiler realizado: ");
+	                resultado.append("Usuario ID: ").append(personaId).append(", ");
+	                resultado.append("Modelo Moto: ").append(motoModelo).append(", ");
+	                resultado.append("Fecha: ").append(fecha).append(", ");
+	                resultado.append("Duración: ").append(duracion).append(" meses");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+
+	    return resultado.toString();
+	}
+
+
 }
 
 
