@@ -52,11 +52,11 @@ public class MetodosDB {
 
     //Método para crear la tabla de motos y la de motosSegundaMano
     public static void crearTablas() {
-    	String sql = "CREATE TABLE IF NOT EXISTS Motos(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, puntos int)";
+    	String sql = "CREATE TABLE IF NOT EXISTS Motos(marca String, modelo String, color String, matricula String, cilindrada int, potencia int, precio int, puntos int)";
     	try {
     		Statement stmt = conn.createStatement();
     		stmt.executeUpdate(sql);
-    		sql = "CREATE TABLE IF NOT EXISTS MotosSegundaMano(marca String, modelo String, color String, matricula String, cilindrada String, potencia String, precio String, puntos int, anioFabricacion int, kilometraje int, estado String)";
+    		sql = "CREATE TABLE IF NOT EXISTS MotosSegundaMano(marca String, modelo String, color String, matricula String, cilindrada int, potencia int, precio int, puntos int, anioFabricacion int, kilometraje int, estado String)";
     		stmt.executeUpdate(sql);
     		stmt.close();
     	} catch (SQLException e) {
@@ -94,7 +94,7 @@ public class MetodosDB {
     
     public static void cargarMotosSegundaMano(String nomfich) {
     	try {
-    		String sql = "INSERT INTO Motos VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    		String sql = "INSERT INTO MotosSegundaMano VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     		PreparedStatement ps = conn.prepareStatement(sql);
     		Scanner sc = new Scanner(new File(nomfich)); 
     		while(sc.hasNextLine()) {
@@ -110,7 +110,7 @@ public class MetodosDB {
     			ps.setString(7, datos[6]);
     			ps.setInt(8, Integer.parseInt(datos[7]));
     			ps.setInt(9, Integer.parseInt(datos[8]));
-    			ps.setInt(10, Integer.parseInt(datos[9]));
+    			ps.setString(10, datos[9]);
     			ps.setString(11, datos[10]);
     			ps.execute();
     		}
