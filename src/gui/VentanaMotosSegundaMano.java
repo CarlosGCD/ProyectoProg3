@@ -13,6 +13,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -31,6 +32,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
+
+import db.MetodosDB;
+import domain.Moto;
+import domain.MotoSegundaMano;
 
 public class VentanaMotosSegundaMano extends JFrame {
 
@@ -951,34 +956,29 @@ public class VentanaMotosSegundaMano extends JFrame {
 	}
 
 	private void cargarTabla() {
-		File f = new File("resources/data/motoSegundaMano.txt");
-		try {
-			Scanner sc = new Scanner(f);
-			while (sc.hasNextLine()) {
-				String linea = sc.nextLine();
-				String[] datos = linea.split(";");
-
-				String marca = datos[0];
-				String modelo = datos[1];
-				String color = datos[2];
-				String matricula = datos[3];
-				String cilindrada = datos[4];
-				String potencia = datos[5];
-				String precio = datos[6];
-				int puntos = Integer.parseInt(datos[7]);
-				int anioFabricacion = Integer.parseInt(datos[8]);
-				String kilometraje = datos[9];
-				String estado = datos[10];
-
-				Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio, puntos,
-						anioFabricacion, kilometraje, estado };
-				modeloTablaMotos.addRow(fila);
-				tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
-			}
-			sc.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		// Limpiar la tabla antes de cargar nuevos datos
+	    modeloTablaMotos.setRowCount(0);
+	    MetodosDB.conectar();
+	    List<MotoSegundaMano> motosSegundaMano = MetodosDB.obtenerMotosSegundaMano();
+	    
+	    for (MotoSegundaMano motoSegundaMano : motosSegundaMano) {
+	        Object[] fila = { 
+	        	motoSegundaMano.getMarca(),
+	        	motoSegundaMano.getModelo(),
+	        	motoSegundaMano.getColor(),
+	        	motoSegundaMano.getMatricula(),
+	            String.valueOf(motoSegundaMano.getCilindrada()) + " cc",  
+	            String.valueOf(motoSegundaMano.getPotencia()) + " CV",    
+	            String.valueOf(motoSegundaMano.getPrecio()) + "€",      
+	            motoSegundaMano.getPuntos(),
+	            motoSegundaMano.getAnioFabricacion(),
+	            String.valueOf(motoSegundaMano.getKilometraje()) + "km",
+	            motoSegundaMano.getEstado()
+	        };
+	        modeloTablaMotos.addRow(fila);
+	    }
+	    MetodosDB.desconectar();
+	    tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 	}
 
 }

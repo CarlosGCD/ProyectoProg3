@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -755,7 +756,7 @@ public class VentanaMotos extends JFrame {
 	private void cargarTabla() {
 		// Limpiar la tabla antes de cargar nuevos datos
 	    modeloTablaMotos.setRowCount(0);
-	    
+	    MetodosDB.conectar();
 	    List<Moto> motos = MetodosDB.obtenerMotos(); 
 	    
 	    for (Moto moto : motos) {
@@ -764,14 +765,14 @@ public class VentanaMotos extends JFrame {
 	            moto.getModelo(),
 	            moto.getColor(),
 	            moto.getMatricula(),
-	            String.valueOf(moto.getCilindrada()) + " cc",  // Mantenemos el formato que tenías
-	            String.valueOf(moto.getPotencia()) + " CV",    // Mantenemos el formato que tenías
-	            String.valueOf(moto.getPrecio()) + " €",       // Mantenemos el formato que tenías
+	            String.valueOf(moto.getCilindrada()) + " cc",  
+	            String.valueOf(moto.getPotencia()) + " CV",    
+	            String.valueOf(moto.getPrecio()) + "€",       
 	            moto.getPuntos()
 	        };
 	        modeloTablaMotos.addRow(fila);
 	    }
-	    
+	    MetodosDB.desconectar();
 	    tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 	}
 	
