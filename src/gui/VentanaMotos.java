@@ -12,6 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -30,6 +31,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
+
+import db.MetodosDB;
+import domain.Moto;
 
 public class VentanaMotos extends JFrame {
 
@@ -749,30 +753,26 @@ public class VentanaMotos extends JFrame {
 
 
 	private void cargarTabla() {
-		File f = new File("resources/data/motos.txt");
-		try {
-			Scanner sc = new Scanner(f);
-			while (sc.hasNextLine()) {
-				String linea = sc.nextLine();
-				String[] datos = linea.split(";");
-				
-				String marca = datos[0];
-				String modelo = datos[1];
-				String color = datos[2];
-				String matricula = datos[3];
-				String cilindrada = datos[4];
-				String potencia = datos[5];
-				String precio = datos[6];
-				int puntos = Integer.parseInt(datos[7]);
-
-				Object[] fila = { marca, modelo, color, matricula, cilindrada, potencia, precio, puntos };
-				modeloTablaMotos.addRow(fila);
-				tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
-			}
-			sc.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		// Limpiar la tabla antes de cargar nuevos datos
+	    modeloTablaMotos.setRowCount(0);
+	    
+	    List<Moto> motos = MetodosDB.obtenerMotos(); 
+	    
+	    for (Moto moto : motos) {
+	        Object[] fila = { 
+	            moto.getMarca(),
+	            moto.getModelo(),
+	            moto.getColor(),
+	            moto.getMatricula(),
+	            String.valueOf(moto.getCilindrada()) + " cc",  // Mantenemos el formato que tenías
+	            String.valueOf(moto.getPotencia()) + " CV",    // Mantenemos el formato que tenías
+	            String.valueOf(moto.getPrecio()) + " €",       // Mantenemos el formato que tenías
+	            moto.getPuntos()
+	        };
+	        modeloTablaMotos.addRow(fila);
+	    }
+	    
+	    tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 	}
 	
 	
