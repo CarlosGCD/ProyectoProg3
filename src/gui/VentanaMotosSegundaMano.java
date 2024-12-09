@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -950,6 +951,33 @@ public class VentanaMotosSegundaMano extends JFrame {
 		btnVolver.addActionListener((e) -> {
 			vActual.dispose();
 			vAnterior.setVisible(true);
+		});
+		
+		btnComprar.addActionListener((e) -> {
+		    int selectedRow = tablaMotos.getSelectedRow();
+		    
+		    if (selectedRow >= 0) {
+		        
+		        String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1);
+
+		        
+		        int usuarioId = MetodosDB.obtenerUsuarioActual(); 
+
+		        
+		        boolean exito = MetodosDB.insertarCompra(usuarioId, modeloMoto);
+
+		        if (exito) {
+		            
+		            String compraRealizada = MetodosDB.obtenerCompraRealizada(usuarioId, modeloMoto);
+		            System.out.println(compraRealizada);
+
+		            JOptionPane.showMessageDialog(this, "Compra realizada exitosamente.");
+		        } else {
+		            JOptionPane.showMessageDialog(this, "Error al realizar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    } else {
+		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		    }
 		});
 
 		setVisible(true);

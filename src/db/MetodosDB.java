@@ -312,6 +312,90 @@ public class MetodosDB {
 	    }
 	    return false;
 		}
+	
+	public static boolean insertarCompra(int usuarioId, String modeloMoto) {
+	    String sql = "INSERT INTO Comprar (persona_id, moto_modelo, fecha) VALUES (?, ?, date('now'));";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, usuarioId);
+	        pstmt.setString(2, modeloMoto);
+
+	        pstmt.executeUpdate();
+	        return true;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        desconectar();
+	    }
+	}
+	
+	public static int obtenerUsuarioActual() {
+	    
+	    String sql = "SELECT cod FROM Personas WHERE nombre = ?";
+	    int usuarioId = -1;
+
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        
+	        String usuarioActual = "usuarioActual";
+	        pstmt.setString(1, usuarioActual);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                usuarioId = rs.getInt("cod");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+
+	    return usuarioId;
+	}
+	
+	public static String obtenerCompraRealizada(int usuarioId, String modeloMoto) {
+	    String sql = "SELECT persona_id, moto_modelo, fecha FROM Comprar WHERE persona_id = ? AND moto_modelo = ? ORDER BY fecha DESC LIMIT 1;";
+	    StringBuilder resultado = new StringBuilder();
+
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, usuarioId);
+	        pstmt.setString(2, modeloMoto);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                int personaId = rs.getInt("persona_id");
+	                String motoModelo = rs.getString("moto_modelo");
+	                String fecha = rs.getString("fecha");
+
+	                resultado.append("Compra realizada: ");
+	                resultado.append("Usuario ID: ").append(personaId).append(", ");
+	                resultado.append("Modelo Moto: ").append(motoModelo).append(", ");
+	                resultado.append("Fecha: ").append(fecha);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+
+	    return resultado.toString();
+	}
 }
 
 
