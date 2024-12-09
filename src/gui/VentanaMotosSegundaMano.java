@@ -224,9 +224,9 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 				// Comprobar si el valor limpio no está vacío y si el original tiene el formato
 				// correcto
-				if (!cleanValue.isEmpty() && (originalValue.matches("\\d{1,3}(,\\d{3})*(\\.\\d+)?€") || // Formatonumérico
+				if (!cleanValue.isEmpty() && (originalValue.matches("\\d{1,3}(\\d{3})*(\\.\\d+)?€") || // Formatonumérico
 																										// con €
-						originalValue.matches("\\d{1,3}(,\\d{3})*\\s?km") || // Formato numérico con km
+						originalValue.matches("\\d{1,3}(\\d{3})*\\s?km") || // Formato numérico con km
 						originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) { // Formato numérico con cc o CV
 
 					lblContenido.setHorizontalAlignment(JLabel.CENTER);

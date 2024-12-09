@@ -223,7 +223,7 @@ public class VentanaMotos extends JFrame {
 
 				// Comprobar si el valor limpio no está vacío y si el original tiene el formato
 				// correcto
-				if (!cleanValue.isEmpty() && (originalValue.matches("\\d{1,3}(,\\d{3})*(\\.\\d+)?€") || // Formato
+				if (!cleanValue.isEmpty() && (originalValue.matches("\\d{1,3}(\\d{3})*(\\.\\d+)?€") || // Formato
 																										// numérico con
 																										// €
 						originalValue.matches("\\d+(\\.\\d+)?\\s?(cc|CV)"))) { // Formato numérico con cc o CV
