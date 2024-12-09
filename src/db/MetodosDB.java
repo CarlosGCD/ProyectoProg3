@@ -364,6 +364,7 @@ public class MetodosDB {
 
 	    return usuarioId;
 	}
+
 	
 	public static String obtenerCompraRealizada(int usuarioId, String modeloMoto) {
 	    String sql = "SELECT persona_id, moto_modelo, fecha FROM Comprar WHERE persona_id = ? AND moto_modelo = ? ORDER BY fecha DESC LIMIT 1;";
