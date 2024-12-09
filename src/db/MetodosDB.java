@@ -79,7 +79,7 @@ public class MetodosDB {
     			ps.setString(4, datos[3]);
     			ps.setString(5, datos[4]);
     			ps.setString(6, datos[5]);
-    			ps.setString(7, datos[6]);
+    			ps.setInt(7, Integer.parseInt(datos[6].replaceAll("[,€]", "")));
     			ps.setInt(8, Integer.parseInt(datos[7]));
     			ps.execute();
     		}
@@ -107,10 +107,10 @@ public class MetodosDB {
     			ps.setString(4, datos[3]);
     			ps.setString(5, datos[4]);
     			ps.setString(6, datos[5]);
-    			ps.setString(7, datos[6]);
+    			ps.setInt(7, Integer.parseInt(datos[6].replaceAll("[,€]", "")));
     			ps.setInt(8, Integer.parseInt(datos[7]));
     			ps.setInt(9, Integer.parseInt(datos[8]));
-    			ps.setString(10, datos[9]);
+    			ps.setInt(10, Integer.parseInt(datos[9].replaceAll("[, km]", "")));
     			ps.setString(11, datos[10]);
     			ps.execute();
     		}
