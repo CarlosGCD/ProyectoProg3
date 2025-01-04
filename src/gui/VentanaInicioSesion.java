@@ -121,6 +121,7 @@ public class VentanaInicioSesion extends JFrame{
 					String password = new String(passwordArray);
 					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
 						if (MetodosDB.esTrabajador(usuario.getText())) {
+							MetodosDB.setUsuarioLogueado(usuario.getText());
 							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 							vaciarCampos();
 							vActual.dispose();
@@ -149,6 +150,7 @@ public class VentanaInicioSesion extends JFrame{
 					char[] passwordArray = contrasena.getPassword();
 					String password = new String(passwordArray);
 					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
+						MetodosDB.setUsuarioLogueado(usuario.getText());
 						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
 						vaciarCampos();
 						vActual.dispose();

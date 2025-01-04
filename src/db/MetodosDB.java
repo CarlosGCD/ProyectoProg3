@@ -21,6 +21,8 @@ public class MetodosDB {
 	
 	private static Connection conn = null;
 	
+	private static String usuarioLogueado = null;
+	
 	//Metodo para conectarse a la base de datos
 	public static void conectar() {
 			try {
@@ -337,6 +339,16 @@ public class MetodosDB {
 	    }
 	}
 	
+	// Método para guardar el usuario que ha iniciado sesión
+	public static void setUsuarioLogueado(String nombre) {
+		usuarioLogueado = nombre;
+	}
+	
+	// Método para obtener el usuario actual
+	public static String getUsuarioLogueado() {
+		return usuarioLogueado;
+	}
+	
 	public static int obtenerUsuarioActual() {
 	    
 	    String sql = "SELECT cod FROM Personas WHERE nombre = ?";
@@ -345,11 +357,13 @@ public class MetodosDB {
 	    if (conn == null) {
 	        conectar();
 	    }
+	    
+	    if (usuarioLogueado == null) {
+	    	return usuarioId; // Retornamos -1 si no hay usuario logueado
+	    }
 
 	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        
-	        String usuarioActual = "usuarioActual";
-	        pstmt.setString(1, usuarioActual);
+	        pstmt.setString(1, usuarioLogueado);
 
 	        try (ResultSet rs = pstmt.executeQuery()) {
 	            if (rs.next()) {
