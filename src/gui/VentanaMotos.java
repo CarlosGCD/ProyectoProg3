@@ -38,6 +38,7 @@ import javax.swing.table.TableRowSorter;
 
 import db.MetodosDB;
 import db.MetodosDB.UltimaCompra;
+import db.MetodosDB.UltimoAlquiler;
 import domain.AlquilerDuracion;
 import domain.Moto;
 
@@ -878,7 +879,6 @@ public class VentanaMotos extends JFrame {
 											"La compra ha sido cancelada exitosamente.", 
 											"Compra cancelada", 
 											JOptionPane.INFORMATION_MESSAGE);
-									// Aquí actualizamos la tabla
 								} else {
 									JOptionPane.showMessageDialog(null, 
 											"Hubo un error al cancelar la compra.", 
@@ -889,7 +889,44 @@ public class VentanaMotos extends JFrame {
 						}
 					}
 				} else if(e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
+					// Obtener el ID del usuario actual
+					int idUsuario = MetodosDB.obtenerUsuarioActual();
 					
+					// Verificar si hay alquileres
+					if (!MetodosDB.tieneAlquileres(idUsuario)) {
+						JOptionPane.showMessageDialog(null, 
+								"No has realizado ningún alquiler anteriormente.", 
+								"Sin alquileres", 
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						UltimoAlquiler ultimoAlquiler = MetodosDB.obtenerUltimoAlquiler(idUsuario);
+						
+						if (ultimoAlquiler != null) {
+							int opcion = JOptionPane.showConfirmDialog(null,
+									"Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" +
+									"Modelo: " + ultimoAlquiler.getModelo() + "\n" +
+									"Fecha: " + ultimoAlquiler.getFecha() + "\n" +
+									"Duración: " + ultimoAlquiler.getDuracion() + "meses" + "\n" +
+									"ID Alquiler: " + ultimoAlquiler.getId(),
+									"Confirmar cancelación",
+									JOptionPane.YES_NO_OPTION);
+						
+							if (opcion == JOptionPane.YES_OPTION) {
+								// Eliminamos el alquiler de la base de datos
+								if (MetodosDB.eliminarAlquiler(ultimoAlquiler.getId())) {
+									JOptionPane.showMessageDialog(null, 
+											"El alquiler ha sido cancelado exitosamente.", 
+											"Alquiler cancelado", 
+											JOptionPane.INFORMATION_MESSAGE);
+								} else {
+									JOptionPane.showMessageDialog(null, 
+											"Hubo un error al cancelar el alquiler.", 
+											"Error",
+											JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						}
+					}
 				}
 			}
 		});

@@ -503,6 +503,103 @@ public class MetodosDB {
 	    return resultado.toString();
 	}
 	
+	public static boolean tieneAlquileres(int idUsuario) {
+	    String sql = "SELECT COUNT(*) as count FROM Alquilar WHERE persona_id = ?";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idUsuario);
+	        
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt("count") > 0;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+	    return false;
+	}
+	
+	public static class UltimoAlquiler {
+	    private int id;
+	    private String modelo;
+	    private String fecha;
+	    private int duracion;
+	    
+	    public UltimoAlquiler(int id, String modelo, String fecha, int duracion) {
+	        this.id = id;
+	        this.modelo = modelo;
+	        this.fecha = fecha;
+	        this.duracion = duracion;
+	    }
+	    
+	    public int getId() { 
+	    	return id; 
+	    }
+	    public String getModelo() { 
+	    	return modelo;
+	    }
+	    public String getFecha() { 
+	    	return fecha; 
+	    }
+	    public int getDuracion() { 
+	    	return duracion; 
+	    }
+	}
+	
+	public static UltimoAlquiler obtenerUltimoAlquiler(int idUsuario) {
+	    String sql = "SELECT id, moto_modelo, fecha, duracion FROM Alquilar " +
+	                 "WHERE persona_id = ? ORDER BY fecha DESC LIMIT 1";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idUsuario);
+	        
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return new UltimoAlquiler(
+	                    rs.getInt("id"),
+	                    rs.getString("moto_modelo"),
+	                    rs.getString("fecha"),
+	                    rs.getInt("duracion")
+	                );
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+	    return null;
+	}
+	
+	public static boolean eliminarAlquiler(int idAlquiler) {
+	    String sql = "DELETE FROM Alquilar WHERE id = ?";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idAlquiler);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        desconectar();
+	    }
+	}
+	
 	public static boolean insertarAlquiler(int usuarioId, String modeloMoto, AlquilerDuracion duracion) {
 	    String sql = "INSERT INTO Alquilar (persona_id, moto_modelo, fecha, duracion) VALUES (?, ?, date('now'), ?);";
 	    
