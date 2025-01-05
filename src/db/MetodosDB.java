@@ -402,8 +402,8 @@ public class MetodosDB {
 	}
 	
 	public static UltimaCompra obtenerUltimaCompra(int idUsuario) {
-	    String sql = "SELECT id, moto_modelo, fecha FROM Comprar " +
-	                 "WHERE persona_id = ? ORDER BY fecha DESC LIMIT 1";
+	    String sql = "SELECT rowid, moto_modelo, fecha FROM Comprar " +
+	                 "WHERE persona_id = ? ORDER BY rowid DESC LIMIT 1";
 	    
 	    if (conn == null) {
 	        conectar();
@@ -554,8 +554,8 @@ public class MetodosDB {
 	}
 	
 	public static UltimoAlquiler obtenerUltimoAlquiler(int idUsuario) {
-	    String sql = "SELECT id, moto_modelo, fecha, duracion FROM Alquilar " +
-	                 "WHERE persona_id = ? ORDER BY fecha DESC LIMIT 1";
+	    String sql = "SELECT rowid, moto_modelo, fecha, duracion FROM Alquilar " +
+	                 "WHERE persona_id = ? ORDER BY rowid DESC LIMIT 1";
 	    
 	    if (conn == null) {
 	        conectar();
@@ -646,7 +646,7 @@ public class MetodosDB {
 	                resultado.append("Usuario ID: ").append(personaId).append(", ");
 	                resultado.append("Modelo Moto: ").append(motoModelo).append(", ");
 	                resultado.append("Fecha: ").append(fecha).append(", ");
-	                resultado.append("Duración: ").append(duracion).append(" meses");
+	                resultado.append("Duración: ").append(duracion).append(" mes/meses");
 	            }
 	        }
 	    } catch (SQLException e) {

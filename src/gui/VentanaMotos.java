@@ -906,7 +906,7 @@ public class VentanaMotos extends JFrame {
 									"Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" +
 									"Modelo: " + ultimoAlquiler.getModelo() + "\n" +
 									"Fecha: " + ultimoAlquiler.getFecha() + "\n" +
-									"Duración: " + ultimoAlquiler.getDuracion() + "meses" + "\n" +
+									"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses" + "\n" +
 									"ID Alquiler: " + ultimoAlquiler.getId(),
 									"Confirmar cancelación",
 									JOptionPane.YES_NO_OPTION);
