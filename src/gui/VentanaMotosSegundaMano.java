@@ -342,6 +342,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("MODELO")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -367,6 +368,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("COLOR")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -392,6 +394,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("MATRÍCULA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -417,6 +420,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("CILINDRADA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -442,6 +446,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("POTENCIA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -467,6 +472,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("PRECIO")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -492,6 +498,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("PUNTOS")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -520,6 +527,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("AÑO FABRICACIÓN")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -548,6 +556,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("KILOMETRAJE")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -573,6 +582,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -598,6 +608,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					}
 				}
 			}
@@ -634,6 +645,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("MODELO")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -659,6 +671,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("COLOR")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -684,6 +697,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("MATRÍCULA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -709,6 +723,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("CILINDRADA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -734,6 +749,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("POTENCIA")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -759,6 +775,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("PRECIO")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -784,6 +801,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("PUNTOS")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -812,6 +830,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("AÑO FABRICACIÓN")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -840,6 +859,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else if (tipo.equals("KILOMETRAJE")) {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -865,6 +885,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					} else {
 						// Obtenemos el modelo que contiene toda la información
 						DefaultTableModel modeloCompleto = modeloTablaMotos;
@@ -890,6 +911,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 							}
 						}
 						tablaMotos.setModel(modeloFiltrado);
+						tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 					}
 				}
 			}
