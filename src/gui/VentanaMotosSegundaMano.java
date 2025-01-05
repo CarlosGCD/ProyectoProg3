@@ -14,6 +14,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -1089,6 +1091,16 @@ public class VentanaMotosSegundaMano extends JFrame {
 											"La compra ha sido cancelada exitosamente.", 
 											"Compra cancelada", 
 											JOptionPane.INFORMATION_MESSAGE);
+									
+									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+									LocalDateTime now = LocalDateTime.now();
+									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+									String formattedDateTime = now.format(formatter);
+									
+									System.out.println("Compra cancelada: " +
+											"Usuario ID: " + idUsuario + ", " +
+											"Modelo Moto: " + ultimaCompra.getModelo() + ", " +
+											"Fecha: " + formattedDateTime);
 								} else {
 									JOptionPane.showMessageDialog(null, 
 											"Hubo un error al cancelar la compra.", 
@@ -1128,6 +1140,17 @@ public class VentanaMotosSegundaMano extends JFrame {
 											"El alquiler ha sido cancelado exitosamente.", 
 											"Alquiler cancelado", 
 											JOptionPane.INFORMATION_MESSAGE);
+									
+									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+									LocalDateTime now = LocalDateTime.now();
+									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+									String formattedDateTime = now.format(formatter);
+									
+									System.out.println("Alquiler cancelado: " +
+											"Usuario ID: " + idUsuario + ", " +
+											"Modelo Moto: " + ultimoAlquiler.getModelo() + ", " +
+											"Fecha: " + formattedDateTime + ", " +
+											"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses");
 								} else {
 									JOptionPane.showMessageDialog(null, 
 											"Hubo un error al cancelar el alquiler.", 
