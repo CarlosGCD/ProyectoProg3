@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -35,6 +37,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
 import db.MetodosDB;
+import db.MetodosDB.UltimaCompra;
 import domain.AlquilerDuracion;
 import domain.Moto;
 
@@ -832,6 +835,63 @@ public class VentanaMotos extends JFrame {
 		    } else {
 		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		    }
+		});
+		
+		tablaMotos.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {	
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
+					// Obtener el ID del usuario actual
+					int idUsuario = MetodosDB.obtenerUsuarioActual();
+					
+					// Verificar si hay compras
+					if (!MetodosDB.tieneCompras(idUsuario)) {
+						JOptionPane.showMessageDialog(null, 
+								"No has realizado ninguna compra anteriormente.", 
+								"Sin compras", 
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						UltimaCompra ultimaCompra = MetodosDB.obtenerUltimaCompra(idUsuario);
+						
+						if (ultimaCompra != null) {
+							int opcion = JOptionPane.showConfirmDialog(null,
+									"Estás seguro de que deseas cancelar la siguiente compra?\n\n" +
+									"Modelo: " + ultimaCompra.getModelo() + "\n" +
+									"Fecha: " + ultimaCompra.getFecha() + "\n" +
+									"ID Compra: " + ultimaCompra.getId(),
+									"Confirmar cancelación",
+									JOptionPane.YES_NO_OPTION);
+						
+							if (opcion == JOptionPane.YES_OPTION) {
+								// Eliminamos la compra de la base de datos
+								if (MetodosDB.eliminarCompra(ultimaCompra.getId())) {
+									JOptionPane.showMessageDialog(null, 
+											"La compra ha sido cancelada exitosamente.", 
+											"Compra cancelada", 
+											JOptionPane.INFORMATION_MESSAGE);
+									// Aquí actualizamos la tabla
+								} else {
+									JOptionPane.showMessageDialog(null, 
+											"Hubo un error al cancelar la compra.", 
+											"Error",
+											JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						}
+					}
+				} else if(e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
+					
+				}
+			}
 		});
 
 

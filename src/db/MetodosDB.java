@@ -316,6 +316,137 @@ public class MetodosDB {
 	    return false;
 		}
 	
+	// Método para guardar el usuario que ha iniciado sesión
+		public static void setUsuarioLogueado(String nombre) {
+			usuarioLogueado = nombre;
+		}
+		
+		// Método para obtener el usuario actual
+		public static String getUsuarioLogueado() {
+			return usuarioLogueado;
+		}
+		
+		public static int obtenerUsuarioActual() {
+		    
+		    String sql = "SELECT cod FROM Personas WHERE nombre = ?";
+		    int usuarioId = -1;
+
+		    if (conn == null) {
+		        conectar();
+		    }
+		    
+		    if (usuarioLogueado == null) {
+		    	return usuarioId; // Retornamos -1 si no hay usuario logueado
+		    }
+
+		    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		        pstmt.setString(1, usuarioLogueado);
+
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            if (rs.next()) {
+		                usuarioId = rs.getInt("cod");
+		            }
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        desconectar();
+		    }
+
+		    return usuarioId;
+		}
+		
+	public static boolean tieneCompras(int idUsuario) {
+		String sql = "SELECT COUNT(*) as count FROM Comprar WHERE persona_id = ?";
+		
+		if (conn == null) {
+			conectar();
+		}
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, idUsuario);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt("count") > 0;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			desconectar();
+		}
+		return false;
+	}
+	
+	public static class UltimaCompra {
+	    private int id;
+	    private String modelo;
+	    private String fecha;
+	    
+	    public UltimaCompra(int id, String modelo, String fecha) {
+	        this.id = id;
+	        this.modelo = modelo;
+	        this.fecha = fecha;
+	    }
+	    
+	    public int getId() { 
+	    	return id; 
+	    }
+	    public String getModelo() { 
+	    	return modelo; 
+	    }
+	    public String getFecha() { 
+	    	return fecha; 
+	    }
+	}
+	
+	public static UltimaCompra obtenerUltimaCompra(int idUsuario) {
+	    String sql = "SELECT id, moto_modelo, fecha FROM Comprar " +
+	                 "WHERE persona_id = ? ORDER BY fecha DESC LIMIT 1";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idUsuario);
+	        
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            if (rs.next()) {
+	                return new UltimaCompra(
+	                    rs.getInt("id"),
+	                    rs.getString("moto_modelo"),
+	                    rs.getString("fecha")
+	                );
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        desconectar();
+	    }
+	    return null;
+	}
+	
+	public static boolean eliminarCompra(int idCompra) {
+	    String sql = "DELETE FROM Comprar WHERE id = ?";
+	    
+	    if (conn == null) {
+	        conectar();
+	    }
+
+	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, idCompra);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    } finally {
+	        desconectar();
+	    }
+	}
+	
 	public static boolean insertarCompra(int usuarioId, String modeloMoto) {
 	    String sql = "INSERT INTO Comprar (persona_id, moto_modelo, fecha) VALUES (?, ?, date('now'));";
 	    
@@ -338,47 +469,6 @@ public class MetodosDB {
 	        desconectar();
 	    }
 	}
-	
-	// Método para guardar el usuario que ha iniciado sesión
-	public static void setUsuarioLogueado(String nombre) {
-		usuarioLogueado = nombre;
-	}
-	
-	// Método para obtener el usuario actual
-	public static String getUsuarioLogueado() {
-		return usuarioLogueado;
-	}
-	
-	public static int obtenerUsuarioActual() {
-	    
-	    String sql = "SELECT cod FROM Personas WHERE nombre = ?";
-	    int usuarioId = -1;
-
-	    if (conn == null) {
-	        conectar();
-	    }
-	    
-	    if (usuarioLogueado == null) {
-	    	return usuarioId; // Retornamos -1 si no hay usuario logueado
-	    }
-
-	    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        pstmt.setString(1, usuarioLogueado);
-
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                usuarioId = rs.getInt("cod");
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        desconectar();
-	    }
-
-	    return usuarioId;
-	}
-
 	
 	public static String obtenerCompraRealizada(int usuarioId, String modeloMoto) {
 	    String sql = "SELECT persona_id, moto_modelo, fecha FROM Comprar WHERE persona_id = ? AND moto_modelo = ? ORDER BY fecha DESC LIMIT 1;";
