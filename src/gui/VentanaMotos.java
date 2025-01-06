@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -28,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -50,7 +52,7 @@ public class VentanaMotos extends JFrame {
 
 	protected JFrame vActual, vAnterior;
 	protected JPanel pNorte, pSur, pCentro;
-	protected JButton btnVolver, btnComprar, btnAlquilar;
+	protected JButton btnVolver, btnComprar, btnAlquilar, btnCombinaciones;
 
 	protected JTable tablaMotos;
 	protected DefaultTableModel modeloTablaMotos;
@@ -87,6 +89,8 @@ public class VentanaMotos extends JFrame {
 		pSur.add(btnAlquilar);
 		btnComprar = new JButton("Comprar");
 		pSur.add(btnComprar);
+		btnCombinaciones = new JButton("Generar Combinaciones");
+		pSur.add(btnCombinaciones);
 		btnVolver = new JButton("Volver");
 		pSur.add(btnVolver);
 
@@ -109,7 +113,7 @@ public class VentanaMotos extends JFrame {
 		tablaMotos.setFillsViewportHeight(true);
 
 		// Añadimos los títulos de las columnas de la tabla
-		String[] titulos = { "MARCA", "MODELO", "COLOR", "MATRÍCULA", "CILINDRADA", "POTENCIA", "PRECIO", "PUNTOS"};
+		String[] titulos = { "MARCA", "MODELO", "COLOR", "MATRÍCULA", "CILINDRADA", "POTENCIA", "PRECIO", "PUNTOS" };
 		modeloTablaMotos.setColumnIdentifiers(titulos);
 
 		pCentro.add(scrollTablaMotos);
@@ -718,54 +722,54 @@ public class VentanaMotos extends JFrame {
 			}
 
 		});
-		
-		
+
 		tablaMotos.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int row = tablaMotos.rowAtPoint(e.getPoint());		
-				
+				int row = tablaMotos.rowAtPoint(e.getPoint());
+
 				if (row >= 0) {
-                    
-                    String marca = (String) modeloTablaMotos.getValueAt(row, 0);
-                    String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
-                    String color = (String) modeloTablaMotos.getValueAt(row, 2);
-                    String matricula = (String) modeloTablaMotos.getValueAt(row, 3);
-                    String cilindrada = (String) modeloTablaMotos.getValueAt(row, 4);
-                    String potencia = (String) modeloTablaMotos.getValueAt(row, 5);
-                    String precio = (String) modeloTablaMotos.getValueAt(row, 6);
-                    String puntuacion = String.valueOf(modeloTablaMotos.getValueAt(row, 7));
-                    
-                    SwingUtilities.invokeLater(() ->  {
-                    	VentanaInfoMoto ventana = new VentanaInfoMoto(marca, modelo, color, matricula, cilindrada, potencia, precio, puntuacion);
-                    	ventana.setVisible(true);
-                    });
+
+					String marca = (String) modeloTablaMotos.getValueAt(row, 0);
+					String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
+					String color = (String) modeloTablaMotos.getValueAt(row, 2);
+					String matricula = (String) modeloTablaMotos.getValueAt(row, 3);
+					String cilindrada = (String) modeloTablaMotos.getValueAt(row, 4);
+					String potencia = (String) modeloTablaMotos.getValueAt(row, 5);
+					String precio = (String) modeloTablaMotos.getValueAt(row, 6);
+					String puntuacion = String.valueOf(modeloTablaMotos.getValueAt(row, 7));
+
+					SwingUtilities.invokeLater(() -> {
+						VentanaInfoMoto ventana = new VentanaInfoMoto(marca, modelo, color, matricula, cilindrada,
+								potencia, precio, puntuacion);
+						ventana.setVisible(true);
+					});
 				}
-				
+
 			}
 
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				
+
 			}
 		});
 
@@ -773,179 +777,161 @@ public class VentanaMotos extends JFrame {
 			vActual.dispose();
 			vAnterior.setVisible(true);
 		});
-		
+
 		btnComprar.addActionListener((e) -> {
-		    int selectedRow = tablaMotos.getSelectedRow();
-		    
-		    if (selectedRow >= 0) {
-		        
-		        String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1);
+			int selectedRow = tablaMotos.getSelectedRow();
 
-		        
-		        int usuarioId = MetodosDB.obtenerUsuarioActual(); 
+			if (selectedRow >= 0) {
 
-		        
-		        boolean exito = MetodosDB.insertarCompra(usuarioId, modeloMoto);
+				String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1);
 
-		        if (exito) {
-		            
-		            String compraRealizada = MetodosDB.obtenerCompraRealizada(usuarioId, modeloMoto);
-		            System.out.println(compraRealizada);
+				int usuarioId = MetodosDB.obtenerUsuarioActual();
 
-		            JOptionPane.showMessageDialog(this, "Compra realizada exitosamente.");
-		        } else {
-		            JOptionPane.showMessageDialog(this, "Error al realizar la compra.", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
-		    } else {
-		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
-		    }
+				boolean exito = MetodosDB.insertarCompra(usuarioId, modeloMoto);
+
+				if (exito) {
+
+					String compraRealizada = MetodosDB.obtenerCompraRealizada(usuarioId, modeloMoto);
+					System.out.println(compraRealizada);
+
+					JOptionPane.showMessageDialog(this, "Compra realizada exitosamente.");
+				} else {
+					JOptionPane.showMessageDialog(this, "Error al realizar la compra.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			}
 		});
-		
+
 		btnAlquilar.addActionListener((e) -> {
-		    int selectedRow = tablaMotos.getSelectedRow();
+			int selectedRow = tablaMotos.getSelectedRow();
 
-		    if (selectedRow >= 0) {
-		        
-		        String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1); 
-        
-		        int usuarioId = MetodosDB.obtenerUsuarioActual();
-	     
-		        AlquilerDuracion[] opciones = AlquilerDuracion.values();
-		        AlquilerDuracion seleccion = (AlquilerDuracion) JOptionPane.showInputDialog(
-		                this,
-		                "Seleccione duración de alquiler:",
-		                "Opciones de Alquiler",
-		                JOptionPane.QUESTION_MESSAGE,
-		                null,
-		                opciones,
-		                opciones[0]
-		        );
+			if (selectedRow >= 0) {
 
-		        if (seleccion != null) {
+				String modeloMoto = (String) modeloTablaMotos.getValueAt(selectedRow, 1);
 
-		            boolean exito = MetodosDB.insertarAlquiler(usuarioId, modeloMoto, seleccion);
+				int usuarioId = MetodosDB.obtenerUsuarioActual();
 
-		            if (exito) {
+				AlquilerDuracion[] opciones = AlquilerDuracion.values();
+				AlquilerDuracion seleccion = (AlquilerDuracion) JOptionPane.showInputDialog(this,
+						"Seleccione duración de alquiler:", "Opciones de Alquiler", JOptionPane.QUESTION_MESSAGE, null,
+						opciones, opciones[0]);
 
-		                String alquilerRealizado = MetodosDB.obtenerAlquilerRealizado(usuarioId, modeloMoto);
-		                System.out.println(alquilerRealizado);
+				if (seleccion != null) {
 
-		                JOptionPane.showMessageDialog(this, "Alquiler registrado exitosamente.");
-		            } else {
-		                JOptionPane.showMessageDialog(this, "Error al registrar el alquiler.", "Error", JOptionPane.ERROR_MESSAGE);
-		            }
-		        }
-		    } else {
-		        JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
-		    }
+					boolean exito = MetodosDB.insertarAlquiler(usuarioId, modeloMoto, seleccion);
+
+					if (exito) {
+
+						String alquilerRealizado = MetodosDB.obtenerAlquilerRealizado(usuarioId, modeloMoto);
+						System.out.println(alquilerRealizado);
+
+						JOptionPane.showMessageDialog(this, "Alquiler registrado exitosamente.");
+					} else {
+						JOptionPane.showMessageDialog(this, "Error al registrar el alquiler.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Debe seleccionar una moto.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			}
+		});
+
+		btnCombinaciones.addActionListener((e) -> {
+		    generarCombinacionesMotos();
 		});
 		
 		tablaMotos.addKeyListener(new KeyListener() {
-			
+
 			@Override
-			public void keyTyped(KeyEvent e) {	
+			public void keyTyped(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
 					// Obtener el ID del usuario actual
 					int idUsuario = MetodosDB.obtenerUsuarioActual();
-					
+
 					// Verificar si hay compras
 					if (!MetodosDB.tieneCompras(idUsuario)) {
-						JOptionPane.showMessageDialog(null, 
-								"No has realizado ninguna compra anteriormente.", 
-								"Sin compras", 
-								JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No has realizado ninguna compra anteriormente.",
+								"Sin compras", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						UltimaCompra ultimaCompra = MetodosDB.obtenerUltimaCompra(idUsuario);
-						
+
 						if (ultimaCompra != null) {
 							int opcion = JOptionPane.showConfirmDialog(null,
-									"Estás seguro de que deseas cancelar la siguiente compra?\n\n" +
-									"Modelo: " + ultimaCompra.getModelo() + "\n" +
-									"Fecha: " + ultimaCompra.getFecha() + "\n" +
-									"ID Compra: " + ultimaCompra.getId(),
-									"Confirmar cancelación",
-									JOptionPane.YES_NO_OPTION);
-						
+									"Estás seguro de que deseas cancelar la siguiente compra?\n\n" + "Modelo: "
+											+ ultimaCompra.getModelo() + "\n" + "Fecha: " + ultimaCompra.getFecha()
+											+ "\n" + "ID Compra: " + ultimaCompra.getId(),
+									"Confirmar cancelación", JOptionPane.YES_NO_OPTION);
+
 							if (opcion == JOptionPane.YES_OPTION) {
 								// Eliminamos la compra de la base de datos
 								if (MetodosDB.eliminarCompra(ultimaCompra.getId())) {
-									JOptionPane.showMessageDialog(null, 
-											"La compra ha sido cancelada exitosamente.", 
-											"Compra cancelada", 
-											JOptionPane.INFORMATION_MESSAGE);
-									
-									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+									JOptionPane.showMessageDialog(null, "La compra ha sido cancelada exitosamente.",
+											"Compra cancelada", JOptionPane.INFORMATION_MESSAGE);
+
+									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para
+									// diferenciar las cancelaciones)
 									LocalDateTime now = LocalDateTime.now();
 									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 									String formattedDateTime = now.format(formatter);
-									
-									System.out.println("Compra cancelada: " +
-											"Usuario ID: " + idUsuario + ", " +
-											"Modelo Moto: " + ultimaCompra.getModelo() + ", " +
-											"Fecha: " + formattedDateTime);
+
+									System.out.println(
+											"Compra cancelada: " + "Usuario ID: " + idUsuario + ", " + "Modelo Moto: "
+													+ ultimaCompra.getModelo() + ", " + "Fecha: " + formattedDateTime);
 								} else {
-									JOptionPane.showMessageDialog(null, 
-											"Hubo un error al cancelar la compra.", 
-											"Error",
+									JOptionPane.showMessageDialog(null, "Hubo un error al cancelar la compra.", "Error",
 											JOptionPane.ERROR_MESSAGE);
 								}
 							}
 						}
 					}
-				} else if(e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
+				} else if (e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
 					// Obtener el ID del usuario actual
 					int idUsuario = MetodosDB.obtenerUsuarioActual();
-					
+
 					// Verificar si hay alquileres
 					if (!MetodosDB.tieneAlquileres(idUsuario)) {
-						JOptionPane.showMessageDialog(null, 
-								"No has realizado ningún alquiler anteriormente.", 
-								"Sin alquileres", 
-								JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "No has realizado ningún alquiler anteriormente.",
+								"Sin alquileres", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						UltimoAlquiler ultimoAlquiler = MetodosDB.obtenerUltimoAlquiler(idUsuario);
-						
+
 						if (ultimoAlquiler != null) {
 							int opcion = JOptionPane.showConfirmDialog(null,
-									"Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" +
-									"Modelo: " + ultimoAlquiler.getModelo() + "\n" +
-									"Fecha: " + ultimoAlquiler.getFecha() + "\n" +
-									"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses" + "\n" +
-									"ID Alquiler: " + ultimoAlquiler.getId(),
-									"Confirmar cancelación",
-									JOptionPane.YES_NO_OPTION);
-						
+									"Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" + "Modelo: "
+											+ ultimoAlquiler.getModelo() + "\n" + "Fecha: " + ultimoAlquiler.getFecha()
+											+ "\n" + "Duración: " + ultimoAlquiler.getDuracion() + " mes/meses" + "\n"
+											+ "ID Alquiler: " + ultimoAlquiler.getId(),
+									"Confirmar cancelación", JOptionPane.YES_NO_OPTION);
+
 							if (opcion == JOptionPane.YES_OPTION) {
 								// Eliminamos el alquiler de la base de datos
 								if (MetodosDB.eliminarAlquiler(ultimoAlquiler.getId())) {
-									JOptionPane.showMessageDialog(null, 
-											"El alquiler ha sido cancelado exitosamente.", 
-											"Alquiler cancelado", 
-											JOptionPane.INFORMATION_MESSAGE);
-									
-									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+									JOptionPane.showMessageDialog(null, "El alquiler ha sido cancelado exitosamente.",
+											"Alquiler cancelado", JOptionPane.INFORMATION_MESSAGE);
+
+									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para
+									// diferenciar las cancelaciones)
 									LocalDateTime now = LocalDateTime.now();
 									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 									String formattedDateTime = now.format(formatter);
-									
-									System.out.println("Alquiler cancelado: " +
-											"Usuario ID: " + idUsuario + ", " +
-											"Modelo Moto: " + ultimoAlquiler.getModelo() + ", " +
-											"Fecha: " + formattedDateTime + ", " +
-											"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses");
+
+									System.out.println("Alquiler cancelado: " + "Usuario ID: " + idUsuario + ", "
+											+ "Modelo Moto: " + ultimoAlquiler.getModelo() + ", " + "Fecha: "
+											+ formattedDateTime + ", " + "Duración: " + ultimoAlquiler.getDuracion()
+											+ " mes/meses");
 								} else {
-									JOptionPane.showMessageDialog(null, 
-											"Hubo un error al cancelar el alquiler.", 
-											"Error",
-											JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Hubo un error al cancelar el alquiler.",
+											"Error", JOptionPane.ERROR_MESSAGE);
 								}
 							}
 						}
@@ -954,35 +940,110 @@ public class VentanaMotos extends JFrame {
 			}
 		});
 
-
 		setVisible(true);
 	}
-	
-
 
 	private void cargarTabla() {
 		// Limpiar la tabla antes de cargar nuevos datos
-	    modeloTablaMotos.setRowCount(0);
-	    MetodosDB.conectar();
-	    List<Moto> motos = MetodosDB.obtenerMotos(); 
-	    
-	    for (Moto moto : motos) {
-	        Object[] fila = { 
-	            moto.getMarca(),
-	            moto.getModelo(),
-	            moto.getColor(),
-	            moto.getMatricula(),
-	            String.valueOf(moto.getCilindrada()) + " cc",  
-	            String.valueOf(moto.getPotencia()) + " CV",    
-	            String.valueOf(moto.getPrecio()) + "€",       
-	            moto.getPuntos()
-	        };
-	        modeloTablaMotos.addRow(fila);
-	    }
-	    MetodosDB.desconectar();
-	    tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
-	}
-	
-	
+		modeloTablaMotos.setRowCount(0);
+		MetodosDB.conectar();
+		List<Moto> motos = MetodosDB.obtenerMotos();
 
+		for (Moto moto : motos) {
+			Object[] fila = { moto.getMarca(), moto.getModelo(), moto.getColor(), moto.getMatricula(),
+					String.valueOf(moto.getCilindrada()) + " cc", String.valueOf(moto.getPotencia()) + " CV",
+					String.valueOf(moto.getPrecio()) + "€", moto.getPuntos() };
+			modeloTablaMotos.addRow(fila);
+		}
+		MetodosDB.desconectar();
+		tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
+	}
+
+	public void generarCombinacionesMotos() {
+        String input = JOptionPane.showInputDialog("Introduce tu presupuesto:");
+        if (input != null && !input.isEmpty()) {
+            try {
+                int presupuesto = Integer.parseInt(input);
+
+                // Obtener la lista de motos desde la base de datos.
+                MetodosDB.conectar();
+                List<Moto> motos = MetodosDB.obtenerMotos();
+                MetodosDB.desconectar();
+
+                // Generar las combinaciones.
+                List<List<Moto>> combinaciones = generarCombinaciones(motos, presupuesto);
+
+                // Verificar si hay combinaciones
+                if (combinaciones.isEmpty()) {
+                    // Mostrar mensaje de error 
+                    JOptionPane.showMessageDialog(null, 
+                                                  "No hay combinaciones posibles con ese presupuesto.", 
+                                                  "Error", 
+                                                  JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Construir el mensaje de salida con las combinaciones.
+                    StringBuilder resultado = new StringBuilder("Combinaciones posibles:\n");
+                    for (List<Moto> combinacion : combinaciones) {
+                        resultado.append("[");
+                        for (Moto moto : combinacion) {
+                            resultado.append(moto.getMarca()).append(" ").append(moto.getModelo()).append(", ");
+                        }
+                        resultado.setLength(resultado.length() - 2); // Eliminar la última coma y espacio.
+                        resultado.append("]\n");
+                    }
+
+                    // Crear un JTextArea para mostrar las combinaciones con desplazamiento.
+                    JTextArea textArea = new JTextArea(20, 40); // 20 filas y 40 columnas.
+                    textArea.setText(resultado.toString());
+                    textArea.setCaretPosition(0); // Desplazar el área de texto al inicio.
+                    textArea.setEditable(false); // Hacer que no sea editable.
+                    
+                    
+                    // Crear un JScrollPane para que el contenido sea desplazable.
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+
+                    // Mostrar el resultado en un cuadro de diálogo con desplazamiento.
+                    JOptionPane.showMessageDialog(null, scrollPane, "Combinaciones posibles", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.");
+            }
+        }
+    }
+
+	// Método recursivo para generar combinaciones de motos dentro del presupuesto.
+	private List<List<Moto>> generarCombinaciones(List<Moto> motos, int presupuesto) {
+		List<List<Moto>> resultado = new ArrayList<>();
+		generarCombinacionesR(motos, presupuesto, 0, new ArrayList<>(), resultado);
+		return resultado;
+	}
+
+	private void generarCombinacionesR(List<Moto> motos, int presupuesto, int index, 
+                                            List<Moto> combinacionActual, 
+                                            List<List<Moto>> resultado) {
+        if (presupuesto < 0) {
+            return; // Si excedemos el presupuesto, detener esta rama.
+        }
+
+        // Solo agregar combinaciones de al menos dos motos.
+        if (combinacionActual.size() >= 2) {
+            resultado.add(new ArrayList<>(combinacionActual));
+        }        
+
+        // Explorar todas las combinaciones posibles desde el índice actual.
+        for (int i = index; i < motos.size(); i++) {
+            Moto moto = motos.get(i);
+
+            // Añadir la moto actual a la combinación.
+            combinacionActual.add(moto);
+
+            // Llamada recursiva con el presupuesto reducido y el siguiente índice.
+            generarCombinacionesR(motos, presupuesto - moto.getPrecio(), i + 1, combinacionActual, resultado);
+
+            // Retirar la moto para probar otras combinaciones.
+            combinacionActual.remove(combinacionActual.size() - 1);
+        }
+    }
+ 
+	
 }
