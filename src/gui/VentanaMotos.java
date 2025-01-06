@@ -11,15 +11,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,7 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -45,6 +39,7 @@ import db.MetodosDB.UltimaCompra;
 import db.MetodosDB.UltimoAlquiler;
 import domain.AlquilerDuracion;
 import domain.Moto;
+import logic.GeneradorCombinacionesMotos;
 
 public class VentanaMotos extends JFrame {
 
@@ -839,7 +834,7 @@ public class VentanaMotos extends JFrame {
 		});
 
 		btnCombinaciones.addActionListener((e) -> {
-		    generarCombinacionesMotos();
+		    GeneradorCombinacionesMotos.generarCombinacionesMotos(false);
 		});
 		
 		tablaMotos.addKeyListener(new KeyListener() {
@@ -959,91 +954,5 @@ public class VentanaMotos extends JFrame {
 		tablaMotos.getColumnModel().getColumn(0).setCellRenderer(new RendererIcono());
 	}
 
-	public void generarCombinacionesMotos() {
-        String input = JOptionPane.showInputDialog("Introduce tu presupuesto:");
-        if (input != null && !input.isEmpty()) {
-            try {
-                int presupuesto = Integer.parseInt(input);
-
-                // Obtener la lista de motos desde la base de datos.
-                MetodosDB.conectar();
-                List<Moto> motos = MetodosDB.obtenerMotos();
-                MetodosDB.desconectar();
-
-                // Generar las combinaciones.
-                List<List<Moto>> combinaciones = generarCombinaciones(motos, presupuesto);
-
-                // Verificar si hay combinaciones
-                if (combinaciones.isEmpty()) {
-                    // Mostrar mensaje de error 
-                    JOptionPane.showMessageDialog(null, 
-                                                  "No hay combinaciones posibles con ese presupuesto.", 
-                                                  "Error", 
-                                                  JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Construir el mensaje de salida con las combinaciones.
-                    StringBuilder resultado = new StringBuilder("Combinaciones posibles:\n");
-                    for (List<Moto> combinacion : combinaciones) {
-                        resultado.append("[");
-                        for (Moto moto : combinacion) {
-                            resultado.append(moto.getMarca()).append(" ").append(moto.getModelo()).append(", ");
-                        }
-                        resultado.setLength(resultado.length() - 2); // Eliminar la última coma y espacio.
-                        resultado.append("]\n");
-                    }
-
-                    // Crear un JTextArea para mostrar las combinaciones con desplazamiento.
-                    JTextArea textArea = new JTextArea(20, 40); // 20 filas y 40 columnas.
-                    textArea.setText(resultado.toString());
-                    textArea.setCaretPosition(0); // Desplazar el área de texto al inicio.
-                    textArea.setEditable(false); // Hacer que no sea editable.
-                    
-                    
-                    // Crear un JScrollPane para que el contenido sea desplazable.
-                    JScrollPane scrollPane = new JScrollPane(textArea);
-
-                    // Mostrar el resultado en un cuadro de diálogo con desplazamiento.
-                    JOptionPane.showMessageDialog(null, scrollPane, "Combinaciones posibles", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.");
-            }
-        }
-    }
-
-	// Método recursivo para generar combinaciones de motos dentro del presupuesto.
-	private List<List<Moto>> generarCombinaciones(List<Moto> motos, int presupuesto) {
-		List<List<Moto>> resultado = new ArrayList<>();
-		generarCombinacionesR(motos, presupuesto, 0, new ArrayList<>(), resultado);
-		return resultado;
-	}
-
-	private void generarCombinacionesR(List<Moto> motos, int presupuesto, int index, 
-                                            List<Moto> combinacionActual, 
-                                            List<List<Moto>> resultado) {
-        if (presupuesto < 0) {
-            return; // Si excedemos el presupuesto, detener esta rama.
-        }
-
-        // Solo agregar combinaciones de al menos dos motos.
-        if (combinacionActual.size() >= 2) {
-            resultado.add(new ArrayList<>(combinacionActual));
-        }        
-
-        // Explorar todas las combinaciones posibles desde el índice actual.
-        for (int i = index; i < motos.size(); i++) {
-            Moto moto = motos.get(i);
-
-            // Añadir la moto actual a la combinación.
-            combinacionActual.add(moto);
-
-            // Llamada recursiva con el presupuesto reducido y el siguiente índice.
-            generarCombinacionesR(motos, presupuesto - moto.getPrecio(), i + 1, combinacionActual, resultado);
-
-            // Retirar la moto para probar otras combinaciones.
-            combinacionActual.remove(combinacionActual.size() - 1);
-        }
-    }
- 
 	
 }

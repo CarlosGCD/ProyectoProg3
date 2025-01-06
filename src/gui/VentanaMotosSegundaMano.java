@@ -12,13 +12,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -42,15 +39,15 @@ import db.MetodosDB;
 import db.MetodosDB.UltimaCompra;
 import db.MetodosDB.UltimoAlquiler;
 import domain.AlquilerDuracion;
-import domain.Moto;
 import domain.MotoSegundaMano;
+import logic.GeneradorCombinacionesMotos;
 
 public class VentanaMotosSegundaMano extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	protected JFrame vActual, vAnterior;
 	protected JPanel pNorte, pSur, pCentro;
-	protected JButton btnVolver, btnComprar, btnAlquilar;
+	protected JButton btnVolver, btnComprar, btnAlquilar, btnCombinaciones;
 
 	protected JTable tablaMotos;
 	protected DefaultTableModel modeloTablaMotos;
@@ -86,6 +83,8 @@ public class VentanaMotosSegundaMano extends JFrame {
 		pSur.add(btnAlquilar);
 		btnComprar = new JButton("Comprar");
 		pSur.add(btnComprar);
+		btnCombinaciones = new JButton("Generar Combinaciones");
+		pSur.add(btnCombinaciones);
 		btnVolver = new JButton("Volver");
 		pSur.add(btnVolver);
 
@@ -1050,6 +1049,10 @@ public class VentanaMotosSegundaMano extends JFrame {
 		    }
 		});
 
+		btnCombinaciones.addActionListener((e) -> {
+		    GeneradorCombinacionesMotos.generarCombinacionesMotos(true);
+		});
+		
 		tablaMotos.addKeyListener(new KeyListener() {
 			
 			@Override
