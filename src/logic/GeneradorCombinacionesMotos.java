@@ -71,7 +71,7 @@ public class GeneradorCombinacionesMotos {
 	                JScrollPane scrollPane = new JScrollPane(textArea);
 
 	                // Mostrar el resultado en un cuadro de diálogo
-	                JOptionPane.showMessageDialog(null, scrollPane, "Combinaciones posibles", JOptionPane.INFORMATION_MESSAGE);
+	                JOptionPane.showMessageDialog(null, scrollPane, "Combinaciones posibles a partir del presupuesto introducido", JOptionPane.INFORMATION_MESSAGE);
 	            }
 	        } catch (NumberFormatException e) {
 	            JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido.");
