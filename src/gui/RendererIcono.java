@@ -38,7 +38,7 @@ public class RendererIcono extends DefaultTableCellRenderer{
         ImageIcon icon = iconos.get(value.toString());
         label.setText("");
         label.setIcon(icon);
-        
+        label.setToolTipText(value.toString());
         label.setHorizontalAlignment(JLabel.CENTER);
         
         return label;
