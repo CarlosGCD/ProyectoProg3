@@ -134,6 +134,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 		// Configurar el RowSorter para personalizar el orden de cada columna
 		TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloTablaMotos);
 
+		//IAG (herramienta: Claude)
 		// Configurar comparadores personalizados para las columnas de texto y numéricas
 		for (int i = 0; i < modeloTablaMotos.getColumnCount(); i++) {
 		    if (i < 4 || i == 10) {
@@ -226,7 +227,7 @@ public class VentanaMotosSegundaMano extends JFrame {
 			// Si el valor es numérico se renderiza centrado
 			if (value instanceof Number) {
 				lblContenido.setHorizontalAlignment(JLabel.CENTER);
-			} else {
+			} else { //IAG (herramienta: ChatGPT)
 				// Si el valor es texto pero representa un número se renderiza centrado tambien
 				String originalValue = value.toString();
 				String cleanValue = originalValue.replaceAll("[^0-9.]", ""); // Mantener solo dígitos y el punto decimal

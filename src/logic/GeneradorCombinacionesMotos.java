@@ -1,3 +1,4 @@
+
 package logic;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class GeneradorCombinacionesMotos {
 	            } else {
 	                // Construir el mensaje de salida con las combinaciones
 	                StringBuilder resultado = new StringBuilder("Combinaciones posibles:\n");
+	                
+	                //IAG (herramienta: Claude)
 	                // Crear el mensaje con las combinaciones y mostrar propiedades específicas (Año) de las motos de segunda mano
 	                for (List<Moto> combinacion : combinaciones) {
 	                    resultado.append("[");
