@@ -110,7 +110,7 @@ public class VentanaRegistroTrabajador extends JFrame {
 		add(panel2, BorderLayout.SOUTH);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("Registro de usuario");
+		this.setTitle("Registro de trabajador");
 		this.setBounds(0,0,400,500);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
