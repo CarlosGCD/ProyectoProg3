@@ -29,10 +29,8 @@ public class MetodosDB {
 				Class.forName("org.sqlite.JDBC");
 				conn = DriverManager.getConnection("jdbc:sqlite:resources/db/Personas.db");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				System.out.println("Error cargando el driver de la BD");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				System.out.println("Error conectando con la base de datos");
 			}
 			
@@ -203,7 +201,6 @@ public class MetodosDB {
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -219,7 +216,6 @@ public class MetodosDB {
 			ps.execute();
 			ps.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -239,7 +235,6 @@ public class MetodosDB {
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -261,7 +256,6 @@ public class MetodosDB {
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
         	e.printStackTrace();
         }
         return false;
