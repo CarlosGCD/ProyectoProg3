@@ -7,10 +7,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -262,56 +265,31 @@ public class VentanaMotosSegundaMano extends JFrame {
 
 		// El color de fondo de la celda cambiará a NO SE QUE COLOR cuando el puntero
 		// del ráton pase sobre ella
-		tablaMotos.addMouseMotionListener(new MouseMotionListener() {
+		tablaMotos.addMouseMotionListener(new MouseMotionAdapter() {
 
-			@Override
-			public void mouseDragged(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				// Cada vez que se mueva el ratón queremos saber en qué fila y columna de la
-				// tabla está el puntero
-				// Obtenemos las coordenadas en las que está el puntero del ratón
-				Point p = e.getPoint();
-				// Obtenemos la fila de la tabla situada en el punto p
-				fila = tablaMotos.rowAtPoint(p);
-				// Obtenemos la columna de la tabla situada en el punto p
-				columna = tablaMotos.columnAtPoint(p);
-				// Forzamos a que se vuelva a aplicar el Renderer
-				tablaMotos.repaint();
-			}
-
+		    public void mouseMoved(MouseEvent e) {
+		        // Cada vez que se mueva el ratón queremos saber en qué fila y columna de la tabla está el puntero
+		        // Obtenemos las coordenadas en las que está el puntero del ratón
+		        Point p = e.getPoint();
+		        // Obtenemos la fila de la tabla situada en el punto p
+		        fila = tablaMotos.rowAtPoint(p);
+		        // Obtenemos la columna de la tabla situada en el punto p
+		        columna = tablaMotos.columnAtPoint(p);
+		        // Forzamos a que se vuelva a aplicar el Renderer
+		        tablaMotos.repaint();
+		    }
 		});
 
 		// Implementamos el mouseListener para saber cuando sale el raton de la tabla,
 		// para devolverle el fondo anterior a la ultima celda sobre la que ha estado el
 		// raton, sino se queda pintada
-		tablaMotos.addMouseListener(new MouseListener() {
+		tablaMotos.addMouseListener(new MouseAdapter() {
 
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				fila = -1;
-				columna = -1;
-				tablaMotos.repaint();
-			}
-
+		    public void mouseExited(MouseEvent e) {
+		        fila = -1;
+		        columna = -1;
+		        tablaMotos.repaint();
+		    }
 		});
 		// Añadimos el listener al JTextField
 		txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
@@ -929,53 +907,29 @@ public class VentanaMotosSegundaMano extends JFrame {
 		});
 
 		
-		tablaMotos.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = tablaMotos.rowAtPoint(e.getPoint());		
-				
-				if (row >= 0) {
-                    
-                    String marca = (String) modeloTablaMotos.getValueAt(row, 0);
-                    String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
-                    String color = (String) modeloTablaMotos.getValueAt(row, 2);
-                    String matricula = (String) modeloTablaMotos.getValueAt(row, 3);
-                    String cilindrada = (String) modeloTablaMotos.getValueAt(row, 4);
-                    String potencia = (String) modeloTablaMotos.getValueAt(row, 5);
-                    String precio = (String) modeloTablaMotos.getValueAt(row, 6);
-                    String puntuacion = String.valueOf(modeloTablaMotos.getValueAt(row, 7));
-                    
-                    SwingUtilities.invokeLater(() ->  {
-                    	VentanaInfoMoto ventana = new VentanaInfoMoto(marca, modelo, color, matricula, cilindrada, potencia, precio, puntuacion);
-                    	ventana.setVisible(true);
-                    });
-				}
-				
-			}
+		tablaMotos.addMouseListener(new MouseAdapter() {
 
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        int row = tablaMotos.rowAtPoint(e.getPoint());        
 
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+		        if (row >= 0) {
+		            String marca = (String) modeloTablaMotos.getValueAt(row, 0);
+		            String modelo = (String) modeloTablaMotos.getValueAt(row, 1);
+		            String color = (String) modeloTablaMotos.getValueAt(row, 2);
+		            String matricula = (String) modeloTablaMotos.getValueAt(row, 3);
+		            String cilindrada = (String) modeloTablaMotos.getValueAt(row, 4);
+		            String potencia = (String) modeloTablaMotos.getValueAt(row, 5);
+		            String precio = (String) modeloTablaMotos.getValueAt(row, 6);
+		            String puntuacion = String.valueOf(modeloTablaMotos.getValueAt(row, 7));
 
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
+		            SwingUtilities.invokeLater(() -> {
+		                VentanaInfoMoto ventana = new VentanaInfoMoto(marca, modelo, color, matricula, cilindrada,
+		                        potencia, precio, puntuacion);
+		                ventana.setVisible(true);
+		            });
+		        }
+		    }
 		});
 		
 		btnVolver.addActionListener((e) -> {
@@ -1053,118 +1007,109 @@ public class VentanaMotosSegundaMano extends JFrame {
 		    GeneradorCombinacionesMotos.generarCombinacionesMotos(true);
 		});
 		
-		tablaMotos.addKeyListener(new KeyListener() {
-			
-			@Override
-			public void keyTyped(KeyEvent e) {	
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
-					// Obtener el ID del usuario actual
-					int idUsuario = MetodosDB.obtenerUsuarioActual();
-					
-					// Verificar si hay compras
-					if (!MetodosDB.tieneCompras(idUsuario)) {
-						JOptionPane.showMessageDialog(null, 
-								"No has realizado ninguna compra anteriormente.", 
-								"Sin compras", 
-								JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						UltimaCompra ultimaCompra = MetodosDB.obtenerUltimaCompra(idUsuario);
-						
-						if (ultimaCompra != null) {
-							int opcion = JOptionPane.showConfirmDialog(null,
-									"Estás seguro de que deseas cancelar la siguiente compra?\n\n" +
-									"Modelo: " + ultimaCompra.getModelo() + "\n" +
-									"Fecha: " + ultimaCompra.getFecha() + "\n" +
-									"ID Compra: " + ultimaCompra.getId(),
-									"Confirmar cancelación",
-									JOptionPane.YES_NO_OPTION);
-						
-							if (opcion == JOptionPane.YES_OPTION) {
-								// Eliminamos la compra de la base de datos
-								if (MetodosDB.eliminarCompra(ultimaCompra.getId())) {
-									JOptionPane.showMessageDialog(null, 
-											"La compra ha sido cancelada exitosamente.", 
-											"Compra cancelada", 
-											JOptionPane.INFORMATION_MESSAGE);
-									
-									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
-									LocalDateTime now = LocalDateTime.now();
-									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-									String formattedDateTime = now.format(formatter);
-									
-									System.out.println("Compra cancelada: " +
-											"Usuario ID: " + idUsuario + ", " +
-											"Modelo Moto: " + ultimaCompra.getModelo() + ", " +
-											"Fecha: " + formattedDateTime);
-								} else {
-									JOptionPane.showMessageDialog(null, 
-											"Hubo un error al cancelar la compra.", 
-											"Error",
-											JOptionPane.ERROR_MESSAGE);
-								}
-							}
-						}
-					}
-				} else if(e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
-					// Obtener el ID del usuario actual
-					int idUsuario = MetodosDB.obtenerUsuarioActual();
-					
-					// Verificar si hay alquileres
-					if (!MetodosDB.tieneAlquileres(idUsuario)) {
-						JOptionPane.showMessageDialog(null, 
-								"No has realizado ningún alquiler anteriormente.", 
-								"Sin alquileres", 
-								JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						UltimoAlquiler ultimoAlquiler = MetodosDB.obtenerUltimoAlquiler(idUsuario);
-						
-						if (ultimoAlquiler != null) {
-							int opcion = JOptionPane.showConfirmDialog(null,
-									"Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" +
-									"Modelo: " + ultimoAlquiler.getModelo() + "\n" +
-									"Fecha: " + ultimoAlquiler.getFecha() + "\n" +
-									"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses" + "\n" +
-									"ID Alquiler: " + ultimoAlquiler.getId(),
-									"Confirmar cancelación",
-									JOptionPane.YES_NO_OPTION);
-						
-							if (opcion == JOptionPane.YES_OPTION) {
-								// Eliminamos el alquiler de la base de datos
-								if (MetodosDB.eliminarAlquiler(ultimoAlquiler.getId())) {
-									JOptionPane.showMessageDialog(null, 
-											"El alquiler ha sido cancelado exitosamente.", 
-											"Alquiler cancelado", 
-											JOptionPane.INFORMATION_MESSAGE);
-									
-									// Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
-									LocalDateTime now = LocalDateTime.now();
-									DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-									String formattedDateTime = now.format(formatter);
-									
-									System.out.println("Alquiler cancelado: " +
-											"Usuario ID: " + idUsuario + ", " +
-											"Modelo Moto: " + ultimoAlquiler.getModelo() + ", " +
-											"Fecha: " + formattedDateTime + ", " +
-											"Duración: " + ultimoAlquiler.getDuracion() + " mes/meses");
-								} else {
-									JOptionPane.showMessageDialog(null, 
-											"Hubo un error al cancelar el alquiler.", 
-											"Error",
-											JOptionPane.ERROR_MESSAGE);
-								}
-							}
-						}
-					}
-				}
-			}
+		tablaMotos.addKeyListener(new KeyAdapter() {
+
+		    public void keyPressed(KeyEvent e) {
+		        if (e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()) {
+		            // Obtener el ID del usuario actual
+		            int idUsuario = MetodosDB.obtenerUsuarioActual();
+
+		            // Verificar si hay compras
+		            if (!MetodosDB.tieneCompras(idUsuario)) {
+		                JOptionPane.showMessageDialog(null, 
+		                        "No has realizado ninguna compra anteriormente.", 
+		                        "Sin compras", 
+		                        JOptionPane.INFORMATION_MESSAGE);
+		            } else {
+		                UltimaCompra ultimaCompra = MetodosDB.obtenerUltimaCompra(idUsuario);
+
+		                if (ultimaCompra != null) {
+		                    int opcion = JOptionPane.showConfirmDialog(null,
+		                            "Estás seguro de que deseas cancelar la siguiente compra?\n\n" +
+		                            "Modelo: " + ultimaCompra.getModelo() + "\n" +
+		                            "Fecha: " + ultimaCompra.getFecha() + "\n" +
+		                            "ID Compra: " + ultimaCompra.getId(),
+		                            "Confirmar cancelación",
+		                            JOptionPane.YES_NO_OPTION);
+
+		                    if (opcion == JOptionPane.YES_OPTION) {
+		                        // Eliminamos la compra de la base de datos
+		                        if (MetodosDB.eliminarCompra(ultimaCompra.getId())) {
+		                            JOptionPane.showMessageDialog(null, 
+		                                    "La compra ha sido cancelada exitosamente.", 
+		                                    "Compra cancelada", 
+		                                    JOptionPane.INFORMATION_MESSAGE);
+
+		                            // Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+		                            LocalDateTime now = LocalDateTime.now();
+		                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		                            String formattedDateTime = now.format(formatter);
+
+		                            System.out.println("Compra cancelada: " +
+		                                    "Usuario ID: " + idUsuario + ", " +
+		                                    "Modelo Moto: " + ultimaCompra.getModelo() + ", " +
+		                                    "Fecha: " + formattedDateTime);
+		                        } else {
+		                            JOptionPane.showMessageDialog(null, 
+		                                    "Hubo un error al cancelar la compra.", 
+		                                    "Error",
+		                                    JOptionPane.ERROR_MESSAGE);
+		                        }
+		                    }
+		                }
+		            }
+		        } else if (e.getKeyCode() == KeyEvent.VK_Y && e.isControlDown()) {
+		            // Obtener el ID del usuario actual
+		            int idUsuario = MetodosDB.obtenerUsuarioActual();
+
+		            // Verificar si hay alquileres
+		            if (!MetodosDB.tieneAlquileres(idUsuario)) {
+		                JOptionPane.showMessageDialog(null, 
+		                        "No has realizado ningún alquiler anteriormente.", 
+		                        "Sin alquileres", 
+		                        JOptionPane.INFORMATION_MESSAGE);
+		            } else {
+		                UltimoAlquiler ultimoAlquiler = MetodosDB.obtenerUltimoAlquiler(idUsuario);
+
+		                if (ultimoAlquiler != null) {
+		                    int opcion = JOptionPane.showConfirmDialog(null,
+		                            "Estás seguro de que deseas cancelar el siguiente alquiler?\n\n" +
+		                            "Modelo: " + ultimoAlquiler.getModelo() + "\n" +
+		                            "Fecha: " + ultimoAlquiler.getFecha() + "\n" +
+		                            "Duración: " + ultimoAlquiler.getDuracion() + " mes/meses" + "\n" +
+		                            "ID Alquiler: " + ultimoAlquiler.getId(),
+		                            "Confirmar cancelación",
+		                            JOptionPane.YES_NO_OPTION);
+
+		                    if (opcion == JOptionPane.YES_OPTION) {
+		                        // Eliminamos el alquiler de la base de datos
+		                        if (MetodosDB.eliminarAlquiler(ultimoAlquiler.getId())) {
+		                            JOptionPane.showMessageDialog(null, 
+		                                    "El alquiler ha sido cancelado exitosamente.", 
+		                                    "Alquiler cancelado", 
+		                                    JOptionPane.INFORMATION_MESSAGE);
+
+		                            // Obtenermos la fecha y hora actuales (Obtenemos también la hora para diferenciar las cancelaciones)
+		                            LocalDateTime now = LocalDateTime.now();
+		                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		                            String formattedDateTime = now.format(formatter);
+
+		                            System.out.println("Alquiler cancelado: " +
+		                                    "Usuario ID: " + idUsuario + ", " +
+		                                    "Modelo Moto: " + ultimoAlquiler.getModelo() + ", " +
+		                                    "Fecha: " + formattedDateTime + ", " +
+		                                    "Duración: " + ultimoAlquiler.getDuracion() + " mes/meses");
+		                        } else {
+		                            JOptionPane.showMessageDialog(null, 
+		                                    "Hubo un error al cancelar el alquiler.", 
+		                                    "Error",
+		                                    JOptionPane.ERROR_MESSAGE);
+		                        }
+		                    }
+		                }
+		            }
+		        }
+		    }
 		});
 		
 		setVisible(true);
