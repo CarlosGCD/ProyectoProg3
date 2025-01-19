@@ -951,12 +951,16 @@ public class VentanaMotosSegundaMano extends JFrame {
 		        if (exito) {
 		            
 		            String compraRealizada = MetodosDB.obtenerCompraRealizada(usuarioId, modeloMoto);
-					JOptionPane.showConfirmDialog(
-                            null,
-                            compraRealizada,
-                            "¿Deseas guardar la factura de la compra?",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE);
+		            Object[] options = {"Vale"};
+		            JOptionPane.showOptionDialog(
+				            null, 
+				            compraRealizada, 
+				            "Factura de tu compra", 
+				            JOptionPane.DEFAULT_OPTION, 
+				            JOptionPane.INFORMATION_MESSAGE, 
+				            null, 
+				            options, 
+				            options[0]);
 
 		            JOptionPane.showMessageDialog(this, "Compra realizada exitosamente.");
 		        } else {
@@ -994,12 +998,16 @@ public class VentanaMotosSegundaMano extends JFrame {
 		            if (exito) {
 
 		                String alquilerRealizado = MetodosDB.obtenerAlquilerRealizado(usuarioId, modeloMoto);
-		                JOptionPane.showConfirmDialog(
-	                            null,
-	                            alquilerRealizado,
-	                            "¿Deseas guardar la factura del alquiler?",
-	                            JOptionPane.YES_NO_OPTION,
-	                            JOptionPane.QUESTION_MESSAGE);
+		                Object[] options = {"Vale"};
+				        JOptionPane.showOptionDialog(
+				            null, 
+				            alquilerRealizado, 
+				            "Factura de tu compra", 
+				            JOptionPane.DEFAULT_OPTION, 
+				            JOptionPane.INFORMATION_MESSAGE, 
+				            null, 
+				            options, 
+				            options[0]);
 
 		                JOptionPane.showMessageDialog(this, "Alquiler registrado exitosamente.");
 		            } else {
