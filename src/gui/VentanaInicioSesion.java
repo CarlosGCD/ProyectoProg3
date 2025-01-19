@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -80,20 +81,20 @@ public class VentanaInicioSesion extends JFrame{
 		contrasena.setBounds(235, 45, 150, 20);
 		panelSesion.add(contrasena);
 		
-		siTrabajador = new JRadioButton("si");
-		siTrabajador.setBounds(200, 110, 20, 20);
+		ButtonGroup grupoTrabajador = new ButtonGroup();
+
+		// Crear los radio buttons
+		JRadioButton siTrabajador = new JRadioButton("si");
+		siTrabajador.setBounds(200, 110, 50, 20); // Aumenté el ancho a 50
 		panelSesion.add(siTrabajador);
-		
-		noTrabajador = new JRadioButton("no");
-		noTrabajador.setBounds(200, 130, 20, 20);
+
+		JRadioButton noTrabajador = new JRadioButton("no");
+		noTrabajador.setBounds(200, 130, 50, 20); // Aumenté el ancho a 50
 		panelSesion.add(noTrabajador);
-		
-		if (siTrabajador.isSelected()) {
-			noTrabajador.setSelected(false);
-		}
-		if (noTrabajador.isSelected()) {
-            siTrabajador.setSelected(false);
-        };
+
+		// Agregar los radio buttons al grupo
+		grupoTrabajador.add(siTrabajador);
+		grupoTrabajador.add(noTrabajador);
          
 		
 		
@@ -112,61 +113,66 @@ public class VentanaInicioSesion extends JFrame{
 		
 		iniciarSesion.addActionListener((e)-> {
 			MetodosDB.conectar();
-			if (siTrabajador.isSelected()) {
-				if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
-					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
-                    return;
-				}else if (MetodosDB.existeUsuario(usuario.getText())) {
-					char[] passwordArray = contrasena.getPassword();
-					String password = new String(passwordArray);
-					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
-						if (MetodosDB.esTrabajador(usuario.getText())) {
-							MetodosDB.setUsuarioLogueado(usuario.getText());
-							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
-							vaciarCampos();
-							vActual.dispose();
-							new VentanaMenu(vActual);
+			if (grupoTrabajador.getSelection() == null) {
+			    JOptionPane.showMessageDialog(null, "Debes seleccionar una opción (Si/No)");
+			    return; 
+			}else {
+				if (siTrabajador.isSelected()) {
+					if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
+						JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+	                    return;
+					}else if (MetodosDB.existeUsuario(usuario.getText())) {
+						char[] passwordArray = contrasena.getPassword();
+						String password = new String(passwordArray);
+						if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
+							if (MetodosDB.esTrabajador(usuario.getText())) {
+								MetodosDB.setUsuarioLogueado(usuario.getText());
+								JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+								vaciarCampos();
+								vActual.dispose();
+								new VentanaMenu(vActual);
+							} else {
+								JOptionPane.showMessageDialog(null, "No eres trabajador", "ERROR",
+										JOptionPane.ERROR_MESSAGE);
+								vaciarCampos();
+							}
 						} else {
-							JOptionPane.showMessageDialog(null, "No eres trabajador", "ERROR",
+							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
 									JOptionPane.ERROR_MESSAGE);
 							vaciarCampos();
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+						JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 						vaciarCampos();
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-					vaciarCampos();
-				}
-			} else {
-				if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
-					JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
-					return;
-					
-				}else if (MetodosDB.existeUsuario(usuario.getText())) {
-					char[] passwordArray = contrasena.getPassword();
-					String password = new String(passwordArray);
-					if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
-						MetodosDB.setUsuarioLogueado(usuario.getText());
-						JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
-						vaciarCampos();
-						vActual.dispose();
-						new VentanaCargar();
+					if(usuario.getText().isEmpty() || contrasena.getPassword().length == 0) {
+						JOptionPane.showMessageDialog(null, "Debes rellenar todos los campos");
+						return;
+						
+					}else if (MetodosDB.existeUsuario(usuario.getText())) {
+						char[] passwordArray = contrasena.getPassword();
+						String password = new String(passwordArray);
+						if (MetodosDB.comprobarPassword(usuario.getText(), password)) {
+							MetodosDB.setUsuarioLogueado(usuario.getText());
+							JOptionPane.showMessageDialog(null, "Has iniciado sesión correctamente");
+							vaciarCampos();
+							vActual.dispose();
+							new VentanaCargar();
+						} else {
+							JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+							vaciarCampos();
+						}
+						
 					} else {
-						JOptionPane.showMessageDialog(null, "Contraseña incorrecta", "ERROR",
+						JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 						vaciarCampos();
 					}
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "Nombre de usuario incorrecto", "ERROR",
-							JOptionPane.ERROR_MESSAGE);
-					vaciarCampos();
 				}
-			}
+		}
 			MetodosDB.desconectar();
 		});
 		

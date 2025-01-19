@@ -9,12 +9,9 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -953,7 +950,12 @@ public class VentanaMotosSegundaMano extends JFrame {
 		        if (exito) {
 		            
 		            String compraRealizada = MetodosDB.obtenerCompraRealizada(usuarioId, modeloMoto);
-		            System.out.println(compraRealizada);
+					JOptionPane.showConfirmDialog(
+                            null,
+                            compraRealizada,
+                            "¿Deseas guardar la factura de la compra?",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
 
 		            JOptionPane.showMessageDialog(this, "Compra realizada exitosamente.");
 		        } else {
@@ -991,7 +993,12 @@ public class VentanaMotosSegundaMano extends JFrame {
 		            if (exito) {
 
 		                String alquilerRealizado = MetodosDB.obtenerAlquilerRealizado(usuarioId, modeloMoto);
-		                System.out.println(alquilerRealizado);
+		                JOptionPane.showConfirmDialog(
+	                            null,
+	                            alquilerRealizado,
+	                            "¿Deseas guardar la factura del alquiler?",
+	                            JOptionPane.YES_NO_OPTION,
+	                            JOptionPane.QUESTION_MESSAGE);
 
 		                JOptionPane.showMessageDialog(this, "Alquiler registrado exitosamente.");
 		            } else {

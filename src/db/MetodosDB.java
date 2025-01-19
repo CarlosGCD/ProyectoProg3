@@ -482,9 +482,9 @@ public class MetodosDB {
 	                String motoModelo = rs.getString("moto_modelo");
 	                String fecha = rs.getString("fecha");
 
-	                resultado.append("Compra realizada: ");
-	                resultado.append("Usuario ID: ").append(personaId).append(", ");
-	                resultado.append("Modelo Moto: ").append(motoModelo).append(", ");
+	                resultado.append("Compra realizada: ").append("\n");
+	                resultado.append("Usuario ID: ").append(personaId).append("\n");
+	                resultado.append("Modelo Moto: ").append(motoModelo).append("\n");
 	                resultado.append("Fecha: ").append(fecha);
 	            }
 	        }
@@ -636,10 +636,10 @@ public class MetodosDB {
 	                String fecha = rs.getString("fecha");
 	                int duracion = rs.getInt("duracion");
 
-	                resultado.append("Alquiler realizado: ");
-	                resultado.append("Usuario ID: ").append(personaId).append(", ");
-	                resultado.append("Modelo Moto: ").append(motoModelo).append(", ");
-	                resultado.append("Fecha: ").append(fecha).append(", ");
+	                resultado.append("Alquiler realizado: ").append("\n");
+	                resultado.append("Usuario ID: ").append(personaId).append("\n");
+	                resultado.append("Modelo Moto: ").append(motoModelo).append("\n");
+	                resultado.append("Fecha: ").append(fecha).append("\n");
 	                resultado.append("Duración: ").append(duracion).append(" mes/meses");
 	            }
 	        }
